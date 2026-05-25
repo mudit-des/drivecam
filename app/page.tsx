@@ -14,8 +14,8 @@ export default function Home() {
       <Hero />
       <MeetYourDriveCam />
       <WideAngleShowcase />
-      <VideoPlaylist />
       <TechSpecsTable />
+      <VideoPlaylist />
       <Troubleshooting />
       <Footer />
     </main>

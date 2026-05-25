@@ -230,7 +230,7 @@ export function VideoPlaylist() {
               variant="display-sm"
               color="primary"
             >
-              Watch the full setup playlist
+              Setup Your DriveCam
             </Typography>
           </div>
           <div className="mt-3">
@@ -253,14 +253,6 @@ export function VideoPlaylist() {
                   <ExternalLink className="h-4 w-4" />
                 </span>
                 <span className="acko-btn-label">Open on YouTube</span>
-              </span>
-            </Link>
-            <Link
-              href={`#${playlistId}`}
-              className="acko-btn acko-btn-link acko-btn-md"
-            >
-              <span className="acko-btn-content">
-                <span className="acko-btn-label">View all videos</span>
               </span>
             </Link>
           </div>

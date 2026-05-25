@@ -15,7 +15,7 @@ export function SdCardUpsell() {
         {/* SD card illustration */}
         <div className="mx-auto flex-shrink-0 sm:mx-0">
           <Image
-            src="/microsd-charcoal-purple.png"
+            src="/microsd-front.png"
             alt="3D rendering of a microSD memory card"
             width={160}
             height={160}

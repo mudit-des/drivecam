@@ -16,8 +16,6 @@ const SPEC_GROUPS: SpecGroup[] = [
     category: "Video",
     rows: [
       { label: "Resolution",   value: "1080p Full HD"  },
-      { label: "Frame Rate",   value: "30fps"          },
-      { label: "Video Codec",  value: "H.264"          },
       { label: "Night Vision", value: "Sony Starvis IMX307 sensor" },
     ],
   },
@@ -26,43 +24,36 @@ const SPEC_GROUPS: SpecGroup[] = [
     rows: [
       { label: "Field of View", value: "156° Wide Angle" },
       { label: "Aperture",      value: "f/1.8"           },
-      { label: "Lens Type",     value: "6-element glass lens" },
     ],
   },
   {
     category: "Storage",
     rows: [
-      { label: "Storage Type",     value: "microSD (Class 10 / UHS-I)" },
-      { label: "Max Capacity",     value: "Up to 128GB"                },
-      { label: "Loop Recording",   value: "1 / 3 / 5 minute segments"  },
-      { label: "Emergency Lock",   value: "G-sensor triggered"         },
+      { label: "Storage Type",   value: "microSD (Class 10 / UHS-I)" },
+      { label: "Max Capacity",   value: "Up to 128GB"                },
+      { label: "Loop Recording", value: "1 / 3 / 5 minute segments"  },
     ],
   },
   {
     category: "Connectivity",
     rows: [
-      { label: "Wi-Fi",      value: "2.4GHz 802.11 b/g/n" },
-      { label: "Bluetooth",  value: "5.0"                  },
-      { label: "App",        value: "iOS & Android"        },
+      { label: "Wi-Fi", value: "2.4GHz 802.11 b/g/n" },
+      { label: "App",   value: "iOS & Android"        },
     ],
   },
   {
     category: "Power",
     rows: [
-      { label: "Input",           value: "5V DC / USB-C"   },
-      { label: "Parking Mode",    value: "Supported (hardwire kit)" },
-      { label: "Battery Backup",  value: "Built-in capacitor"       },
+      { label: "Input",        value: "5V DC / USB-C"            },
+      { label: "Parking Mode", value: "Supported (hardwire kit)" },
     ],
   },
   {
     category: "Build",
     rows: [
-      { label: "IP Rating",       value: "IP52"              },
-      { label: "GPS",             value: "Built-in"          },
-      { label: "G-Sensor",        value: "3-axis"            },
-      { label: "Operating Temp",  value: "–20°C to 70°C"    },
-      { label: "Dimensions",      value: "78 × 42 × 32mm"   },
-      { label: "Weight",          value: "95g"               },
+      { label: "IP Rating", value: "IP52"     },
+      { label: "GPS",       value: "Built-in" },
+      { label: "G-Sensor",  value: "3-axis"   },
     ],
   },
 ];
@@ -83,7 +74,7 @@ export function TechSpecsTable() {
             variant="display-sm"
             color="primary"
           >
-            Tech Specifications
+            Tech Specs
           </Typography>
           <div className="mt-3">
             <Typography variant="body-lg" color="secondary">
