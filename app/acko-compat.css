@@ -1,0 +1,495 @@
+/*
+ * ACKO Design System — v3-compatible CSS
+ *
+ * Provides acko-* class implementations using only raw CSS and the CSS custom
+ * properties injected by @acko/tokens/src/tokens.css.  Zero @apply directives
+ * so this file works alongside Tailwind v3 without any conflicts.
+ */
+
+/* ================================================================
+   BUTTON
+   ================================================================ */
+
+.acko-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 100ms ease,
+    box-shadow 150ms ease;
+}
+
+.acko-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadowFocusRing);
+}
+
+.acko-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Sizes */
+.acko-btn-xs {
+  height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  line-height: 1rem;
+}
+
+.acko-btn-sm {
+  height: 40px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  line-height: 1.125rem;
+}
+
+.acko-btn-md {
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 1rem;
+  border-radius: 9999px;
+  line-height: 1.5rem;
+}
+
+.acko-btn-lg {
+  height: 56px;
+  padding-left: 24px;
+  padding-right: 24px;
+  font-size: 1.125rem;
+  border-radius: 9999px;
+  line-height: 1.75rem;
+}
+
+.acko-btn-xl {
+  height: 64px;
+  padding-left: 32px;
+  padding-right: 32px;
+  font-size: 1.25rem;
+  border-radius: 9999px;
+  line-height: 2rem;
+}
+
+/* Icon wrapper inside button */
+.acko-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.acko-btn-xs .acko-btn-icon { width: 12px; height: 12px; }
+.acko-btn-sm .acko-btn-icon { width: 16px; height: 16px; }
+.acko-btn-md .acko-btn-icon { width: 16px; height: 16px; }
+.acko-btn-lg .acko-btn-icon { width: 24px; height: 24px; }
+.acko-btn-xl .acko-btn-icon { width: 32px; height: 32px; }
+
+/* Icon-only */
+.acko-btn-icon-only.acko-btn-xs { width: 32px; padding: 0; }
+.acko-btn-icon-only.acko-btn-sm { width: 40px; padding: 0; }
+.acko-btn-icon-only.acko-btn-md { width: 48px; padding: 0; }
+.acko-btn-icon-only.acko-btn-lg { width: 56px; padding: 0; }
+.acko-btn-icon-only.acko-btn-xl { width: 64px; padding: 0; }
+
+/* Full width */
+.acko-btn-full-width { width: 100%; }
+
+/* Content wrapper */
+.acko-btn-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.acko-btn-label { line-height: 1; }
+
+/* Variants */
+.acko-btn-primary {
+  background-color: var(--colorPrimary);
+  color: var(--colorOnPrimary);
+  box-shadow: var(--shadowBtnInner);
+}
+
+.acko-btn-secondary {
+  background-color: var(--colorBtnSecondaryBg);
+  color: var(--colorBtnSecondaryText);
+  box-shadow: inset 0 0 0 1px var(--colorBtnSecondaryBorder);
+}
+
+.acko-btn-secondary:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--colorBtnSecondaryBorder),
+    var(--shadowFocusRing);
+}
+
+.acko-btn-inverted {
+  background-color: var(--colorBtnInvertedBg);
+  color: var(--colorBtnInvertedText);
+}
+
+.acko-btn-ghost {
+  background-color: transparent;
+  color: var(--colorBtnGhostColor);
+}
+
+.acko-btn-link {
+  background-color: transparent;
+  color: var(--colorBtnLinkColor);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.acko-btn-danger {
+  background-color: var(--colorBtnDangerBg);
+  color: var(--colorBtnDangerText);
+}
+
+/* Hover */
+@media (hover: hover) and (pointer: fine) {
+  .acko-btn-primary:hover:not(:disabled) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08));
+    background-color: var(--colorPrimary);
+    box-shadow: var(--shadowBtnInner), var(--shadowBtnHover);
+  }
+
+  .acko-btn-secondary:hover:not(:disabled) {
+    filter: brightness(0.96);
+  }
+
+  .acko-btn-inverted:hover:not(:disabled) {
+    filter: brightness(0.96);
+  }
+
+  .acko-btn-ghost:hover:not(:disabled) {
+    background-color: var(--colorBtnGhostHoverBg);
+  }
+
+  .acko-btn-link:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+
+  .acko-btn-danger:hover:not(:disabled) {
+    filter: brightness(0.96);
+  }
+}
+
+/* Disabled */
+.acko-btn-disabled,
+.acko-btn:disabled {
+  cursor: not-allowed;
+  background-color: var(--colorBtnDisabledBg) !important;
+  color: var(--colorBtnDisabledText) !important;
+  box-shadow: none !important;
+  filter: none;
+  opacity: 1;
+}
+
+.acko-btn-disabled:active,
+.acko-btn:disabled:active { transform: none; }
+
+.acko-btn-link:disabled,
+.acko-btn-link.acko-btn-disabled { background-color: transparent !important; }
+
+/* Loading */
+.acko-btn-loading { pointer-events: none; }
+.acko-btn-loading .acko-btn-content { visibility: hidden; }
+
+.acko-btn-dots {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.acko-btn-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: acko-dot-wave 1.2s ease-in-out infinite;
+}
+.acko-btn-dot:nth-child(2) { animation-delay: 0.15s; }
+.acko-btn-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes acko-dot-wave {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ================================================================
+   CARD
+   ================================================================ */
+
+.acko-card {
+  border-radius: var(--radiusCardOuter);
+}
+
+.acko-card-default {
+  background-color: var(--colorCardBg);
+  border: 1px solid var(--colorCardBorder);
+}
+
+.acko-card-secondary {
+  background-color: var(--colorCardSecondaryBg);
+  border: 1px solid var(--colorCardSecondaryBorder);
+}
+
+.acko-card-elevated {
+  background-color: var(--colorCardElevatedBg);
+  box-shadow: var(--shadowLg);
+}
+
+.acko-card-outline {
+  background-color: transparent;
+  border: 1px solid var(--colorCardOutlineBorder);
+}
+
+.acko-card-demoted {
+  background-color: var(--colorCardDemotedBg);
+  border: 1px solid var(--colorCardDemotedBorder);
+}
+
+/* Padding variants */
+.acko-card-pad-none { padding: 0; }
+
+.acko-card-pad-sm {
+  padding: calc(var(--cardContentGutter) - 4px);
+}
+
+.acko-card-pad-md {
+  padding: var(--cardContentGutter);
+}
+
+.acko-card-pad-lg {
+  padding: calc(var(--cardContentGutter) + 8px);
+}
+
+/* Sub-elements */
+.acko-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--colorDividerSubtle);
+}
+
+.acko-card-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.acko-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--colorDividerSubtle);
+}
+
+.acko-card-inset {
+  padding: var(--cardContentGutter);
+  border: 1px solid var(--colorCardDemotedBorder);
+  background-color: var(--colorCardDemotedBg);
+  border-radius: var(--radiusCardNested);
+}
+
+/* ================================================================
+   BADGE
+   ================================================================ */
+
+.acko-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 9999px;
+  line-height: 1;
+  gap: 4px;
+  padding: 6px 8px;
+  font-size: var(--fontCaptionSize);
+}
+
+@media (min-width: 768px) {
+  .acko-badge { font-size: var(--fontBodySmSize); }
+}
+
+.acko-badge-uppercase { text-transform: uppercase; letter-spacing: 0.04em; }
+.acko-badge-sentence-case { text-transform: none; }
+
+/* Solid */
+.acko-badge-solid-purple {
+  background: linear-gradient(0deg, var(--colorBadgePurpleGradientFrom, var(--purple100)), var(--colorBadgePurpleGradientTo, var(--purple50)));
+  border: 1px solid var(--colorBadgePurpleBorder, var(--purple200));
+  color: var(--colorBadgePurpleText, var(--purple700));
+}
+.acko-badge-solid-green {
+  background: linear-gradient(0deg, var(--colorBadgeGreenGradientFrom, #d1fae5), var(--colorBadgeGreenGradientTo, #ecfdf5));
+  border: 1px solid var(--colorBadgeGreenBorder, #6ee7b7);
+  color: var(--colorBadgeGreenText, #065f46);
+}
+.acko-badge-solid-blue {
+  background: linear-gradient(0deg, var(--colorBadgeBlueGradientFrom, #dbeafe), var(--colorBadgeBlueGradientTo, #eff6ff));
+  border: 1px solid var(--colorBadgeBlueBorder, #93c5fd);
+  color: var(--colorBadgeBlueText, #1d4ed8);
+}
+.acko-badge-solid-orange {
+  background: linear-gradient(0deg, var(--colorBadgeOrangeGradientFrom, #ffedd5), var(--colorBadgeOrangeGradientTo, #fff7ed));
+  border: 1px solid var(--colorBadgeOrangeBorder, #fdba74);
+  color: var(--colorBadgeOrangeText, #c2410c);
+}
+.acko-badge-solid-pink {
+  background: linear-gradient(0deg, var(--colorBadgePinkGradientFrom, #fce7f3), var(--colorBadgePinkGradientTo, #fdf2f8));
+  border: 1px solid var(--colorBadgePinkBorder, #f9a8d4);
+  color: var(--colorBadgePinkText, #9d174d);
+}
+.acko-badge-solid-gray {
+  background: linear-gradient(0deg, var(--colorBadgeGrayGradientFrom, var(--grey150)), var(--colorBadgeGrayGradientTo, var(--grey100)));
+  border: 1px solid var(--colorBadgeGrayBorder, var(--grey300));
+  color: var(--colorBadgeGrayText, var(--grey700));
+}
+
+/* Outline */
+.acko-badge-outline-purple {
+  background-color: transparent;
+  border: 1px solid var(--purple600);
+  color: var(--purple700);
+}
+.acko-badge-outline-green  { background: transparent; border: 1px solid #059669; color: #065f46; }
+.acko-badge-outline-blue   { background: transparent; border: 1px solid #2563eb; color: #1d4ed8; }
+.acko-badge-outline-orange { background: transparent; border: 1px solid #ea580c; color: #c2410c; }
+.acko-badge-outline-pink   { background: transparent; border: 1px solid #db2777; color: #9d174d; }
+.acko-badge-outline-gray   { background: transparent; border: 1px solid var(--grey400); color: var(--grey700); }
+
+/* Dot variant — prepend a colored dot via CSS */
+.acko-badge-dot::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.acko-badge-dot.acko-badge-solid-purple::before  { background-color: var(--purple600); }
+.acko-badge-dot.acko-badge-solid-green::before   { background-color: #059669; }
+.acko-badge-dot.acko-badge-solid-orange::before  { background-color: #ea580c; }
+.acko-badge-dot.acko-badge-solid-gray::before    { background-color: var(--grey500); }
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+
+.acko-text {
+  font-family: inherit;
+}
+
+/* Scale */
+.acko-text-display-xl  { font-size: var(--fontDisplayXlSize);  line-height: var(--fontDisplayXlLine);  letter-spacing: var(--fontDisplayXlSpacing);  font-weight: var(--fontDisplayXlWeight,  700); }
+.acko-text-display-lg  { font-size: var(--fontDisplayLgSize);  line-height: var(--fontDisplayLgLine);  letter-spacing: var(--fontDisplayLgSpacing);  font-weight: var(--fontDisplayLgWeight,  700); }
+.acko-text-display-md  { font-size: var(--fontDisplayMdSize);  line-height: var(--fontDisplayMdLine);  letter-spacing: var(--fontDisplayMdSpacing);  font-weight: var(--fontDisplayMdWeight,  700); }
+.acko-text-display-sm  { font-size: var(--fontDisplaySmSize);  line-height: var(--fontDisplaySmLine);  letter-spacing: var(--fontDisplaySmSpacing);  font-weight: var(--fontDisplaySmWeight,  600); }
+.acko-text-heading-xl  { font-size: var(--fontHeadingXlSize);  line-height: var(--fontHeadingXlLine);  letter-spacing: var(--fontHeadingXlSpacing);  font-weight: var(--fontHeadingXlWeight,  600); }
+.acko-text-heading-lg  { font-size: var(--fontHeadingLgSize);  line-height: var(--fontHeadingLgLine);  letter-spacing: var(--fontHeadingLgSpacing);  font-weight: var(--fontHeadingLgWeight,  600); }
+.acko-text-heading-md  { font-size: var(--fontHeadingMdSize);  line-height: var(--fontHeadingMdLine);  letter-spacing: var(--fontHeadingMdSpacing);  font-weight: var(--fontHeadingMdWeight,  600); }
+.acko-text-heading-sm  { font-size: var(--fontHeadingSmSize);  line-height: var(--fontHeadingSmLine);  letter-spacing: var(--fontHeadingSmSpacing);  font-weight: var(--fontHeadingSmWeight,  600); }
+.acko-text-body-lg     { font-size: var(--fontBodyLgSize);     line-height: var(--fontBodyLgLine);     letter-spacing: var(--fontBodyLgSpacing);     font-weight: var(--fontBodyLgWeight,     400); }
+.acko-text-body-md     { font-size: var(--fontBodyMdSize);     line-height: var(--fontBodyMdLine);     letter-spacing: var(--fontBodyMdSpacing);     font-weight: var(--fontBodyMdWeight,     400); }
+.acko-text-body-sm     { font-size: var(--fontBodySmSize);     line-height: var(--fontBodySmLine);     letter-spacing: var(--fontBodySmSpacing);     font-weight: var(--fontBodySmWeight,     400); }
+.acko-text-label-lg    { font-size: var(--fontLabelLgSize);    line-height: var(--fontLabelLgLine);    letter-spacing: var(--fontLabelLgSpacing);    font-weight: var(--fontLabelLgWeight,    500); }
+.acko-text-label-md    { font-size: var(--fontLabelMdSize);    line-height: var(--fontLabelMdLine);    letter-spacing: var(--fontLabelMdSpacing);    font-weight: var(--fontLabelMdWeight,    500); }
+.acko-text-label-sm    { font-size: var(--fontLabelSmSize);    line-height: var(--fontLabelSmLine);    letter-spacing: var(--fontLabelSmSpacing);    font-weight: var(--fontLabelSmWeight,    500); }
+.acko-text-caption     { font-size: var(--fontCaptionSize);    line-height: var(--fontCaptionLine);    letter-spacing: var(--fontCaptionSpacing);    font-weight: var(--fontCaptionWeight,    400); }
+.acko-text-overline    { font-size: var(--fontOverlineSize);   line-height: var(--fontOverlineLine);   letter-spacing: var(--fontOverlineSpacing);   font-weight: var(--fontOverlineWeight,   600); text-transform: uppercase; }
+
+/* Color */
+.acko-text-color-primary   { color: var(--colorTextPrimary); }
+.acko-text-color-secondary { color: var(--colorTextSecondary); }
+.acko-text-color-invert    { color: var(--colorTextInvert); }
+.acko-text-color-brand     { color: var(--colorTextBrand); }
+.acko-text-color-error     { color: var(--colorTextError); }
+.acko-text-color-success   { color: var(--colorTextSuccess); }
+.acko-text-color-static    { color: var(--colorTextStatic); }
+
+/* Weight overrides */
+.acko-text-weight-regular  { font-weight: 400; }
+.acko-text-weight-medium   { font-weight: 500; }
+.acko-text-weight-semibold { font-weight: 600; }
+.acko-text-weight-bold     { font-weight: 700; }
+
+/* Alignment */
+.acko-text-align-left   { text-align: left; }
+.acko-text-align-center { text-align: center; }
+.acko-text-align-right  { text-align: right; }
+
+/* Truncate */
+.acko-text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   SEPARATOR
+   ================================================================ */
+
+.acko-separator {
+  flex-shrink: 0;
+}
+
+.acko-separator-horizontal {
+  width: 100%;
+  height: 1px;
+  background-color: var(--colorDivider);
+}
+
+.acko-separator-vertical {
+  height: 100%;
+  width: 1px;
+  background-color: var(--colorDivider);
+}
+
+.acko-separator-with-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.acko-separator-with-label.acko-separator-horizontal {
+  height: auto;
+  background: transparent;
+}
+
+.acko-separator-line {
+  flex: 1;
+  background-color: var(--colorDivider);
+}
+
+.acko-separator-horizontal .acko-separator-line {
+  height: 1px;
+  min-width: 0;
+}
+
+.acko-separator-label-text {
+  font-size: var(--fontCaptionSize);
+  color: var(--colorTextSecondary);
+  white-space: nowrap;
+}
