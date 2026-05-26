@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
+const BASE_PATH = "/drivecam";
+
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: "/drivecam",
-  assetPrefix: "/drivecam",
+  basePath: BASE_PATH,
+  assetPrefix: BASE_PATH,
   images: {
     unoptimized: true,
+  },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: BASE_PATH,
   },
 };
 

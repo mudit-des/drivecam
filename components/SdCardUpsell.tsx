@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { Typography } from "@acko/typography";
+import { withBasePath } from "@/lib/assets";
 
 const RECOMMENDED_CARDS = [
   {
@@ -33,7 +34,7 @@ export function SdCardUpsell() {
         {/* SD card cluster — fanned upward from a common left-edge pivot */}
         <div className="relative mx-auto h-[120px] w-[100px] flex-shrink-0 sm:mx-0 sm:h-[150px] sm:w-[125px]">
           <Image
-            src="/lexar-silver-plus.png"
+            src={withBasePath("/lexar-silver-plus.png")}
             alt="Lexar Silver Plus microSDXC memory card"
             width={100}
             height={100}
@@ -44,7 +45,7 @@ export function SdCardUpsell() {
             }}
           />
           <Image
-            src="/sandisk-extreme-pro.png"
+            src={withBasePath("/sandisk-extreme-pro.png")}
             alt="SanDisk Extreme PRO microSDXC memory card"
             width={100}
             height={100}
@@ -55,7 +56,7 @@ export function SdCardUpsell() {
             }}
           />
           <Image
-            src="/samsung-pro-endurance.png"
+            src={withBasePath("/samsung-pro-endurance.png")}
             alt="Samsung PRO Endurance microSDXC memory card"
             width={100}
             height={100}

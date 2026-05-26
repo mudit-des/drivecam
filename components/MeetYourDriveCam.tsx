@@ -1,310 +1,287 @@
 "use client";
 
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from "react";
+import { useEffect, useId, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Typography } from "@acko/typography";
+import { withBasePath } from "@/lib/assets";
 
-interface Feature {
+interface FeatureCard {
   id: string;
-  pill: string;
-  title: string;
+  eyebrow: string;
+  headline: string;
   description: string;
-  videoSrc: string;
 }
 
-const FEATURES: readonly Feature[] = [
+const FEATURE_CARDS: readonly FeatureCard[] = [
   {
-    id: "night-vision",
-    pill: "Night Time Vision",
-    title: "See Clearly After Dark",
+    id: "smart-recording",
+    eyebrow: "Smart Recording",
+    headline: "See clearly after dark.",
     description:
-      "Capture sharp footage even in low-light conditions, helping you record important details during night drives.",
-    videoSrc: "/videos/night-vision.mp4",
+      "Enhanced night vision captures sharper details in low-light conditions, helping you keep a reliable record of every drive.",
   },
   {
-    id: "quad-hd",
-    pill: "Superior QUAD HD Recording",
-    title: "Exceptional QUAD HD Clarity",
+    id: "dual-perspective",
+    eyebrow: "Dual Perspective",
+    headline: "Flip. Rotate. Capture everything.",
     description:
-      "Record every journey with enhanced detail and sharpness so you never miss what matters on the road.",
-    videoSrc: "/videos/quad-hd.mp4",
+      "The 360° rotating camera lets you record inside the cabin, outside the vehicle, or anywhere in between.",
   },
   {
-    id: "flip-camera",
-    pill: "360° Flip Camera",
-    title: "Flexible 360° Recording",
+    id: "quad-hd-quality",
+    eyebrow: "Quad HD Quality",
+    headline: "Every detail. Preserved.",
     description:
-      "Rotate the camera freely to capture exactly what you need, whether it's the road ahead or moments inside the cabin.",
-    videoSrc: "/videos/flip-camera.mp4",
+      "Superior Quad HD recording delivers crisp footage and greater clarity when the details matter most.",
   },
 ] as const;
 
-const PANEL_ID = "panel-features";
-
-function usePrefersReducedMotion(): boolean {
-  const [prefers, setPrefers] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefers(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setPrefers(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return prefers;
-}
-
 export function MeetYourDriveCam() {
-  const [activeId, setActiveId] = useState<string>(FEATURES[0].id);
-  const [duration, setDuration] = useState<number | null>(null);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
   const headingId = useId();
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const reducedMotion = usePrefersReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
-  const activeIdx = FEATURES.findIndex((f) => f.id === activeId);
-  const active = FEATURES[activeIdx >= 0 ? activeIdx : 0];
-
-  // Reset progress duration whenever the active feature changes; the new
-  // <video> element will fire loadedmetadata and we'll pick up its duration.
   useEffect(() => {
-    setDuration(null);
-  }, [activeId]);
+    if (!sectionRef.current || !viewportRef.current) return;
 
-  // Pause / resume the active video when hover-pause toggles, and ensure the
-  // newly mounted video starts playing once it's keyed in.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (isPaused) {
-      v.pause();
-    } else {
-      v.play().catch(() => {
-        /* autoplay may be blocked; the muted attribute should allow it */
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const cards = cardRefs.current.filter(
+        (el): el is HTMLElement => el !== null,
+      );
+      if (cards.length === 0) return;
+
+      const mm = gsap.matchMedia();
+
+      // Full cinematic experience for users who allow motion.
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(cards, {
+          rotateX: 85,
+          opacity: 0,
+          z: -40,
+          force3D: true,
+        });
+
+        const tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=250%",
+            pin: viewportRef.current,
+            pinSpacing: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+          },
+        });
+
+        // Each card occupies a 1/3 slice of the timeline:
+        //   enter (~30%) -> hold (~40%) -> exit (~30%)
+        // The final card holds longer instead of exiting before release.
+        const SLOT = 1 / cards.length;
+        const ENTER = 0.30;
+        const EXIT = 0.30;
+
+        cards.forEach((card, idx) => {
+          const slotStart = idx * SLOT;
+          const enterEnd = slotStart + SLOT * ENTER;
+          const exitStart = slotStart + SLOT * (1 - EXIT);
+          const exitEnd = slotStart + SLOT;
+          const isLast = idx === cards.length - 1;
+
+          tl.fromTo(
+            card,
+            { rotateX: 85, opacity: 0, z: -40 },
+            {
+              rotateX: 0,
+              opacity: 1,
+              z: 0,
+              ease: "power2.out",
+              duration: enterEnd - slotStart,
+            },
+            slotStart,
+          );
+
+          if (!isLast) {
+            tl.to(
+              card,
+              {
+                rotateX: -75,
+                opacity: 0,
+                z: -40,
+                ease: "power2.in",
+                duration: exitEnd - exitStart,
+              },
+              exitStart,
+            );
+          }
+        });
       });
-    }
-  }, [isPaused, activeId]);
 
-  const advance = () => {
-    if (reducedMotion) return;
-    const idx = FEATURES.findIndex((f) => f.id === activeId);
-    const nextIdx = (idx + 1) % FEATURES.length;
-    setActiveId(FEATURES[nextIdx].id);
-  };
+      // Reduced-motion fallback: short pin, simple cross-fades, no 3D.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(cards, {
+          rotateX: 0,
+          z: 0,
+          opacity: 0,
+        });
 
-  const focusTab = (idx: number) => {
-    const next = (idx + FEATURES.length) % FEATURES.length;
-    setActiveId(FEATURES[next].id);
-    tabRefs.current[next]?.focus();
-  };
+        const tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=180%",
+            pin: viewportRef.current,
+            pinSpacing: true,
+            scrub: true,
+          },
+        });
 
-  const handleKey = (e: KeyboardEvent<HTMLButtonElement>, idx: number) => {
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        focusTab(idx + 1);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        focusTab(idx - 1);
-        break;
-      case "Home":
-        e.preventDefault();
-        focusTab(0);
-        break;
-      case "End":
-        e.preventDefault();
-        focusTab(FEATURES.length - 1);
-        break;
-      default:
-        break;
-    }
-  };
+        const SLOT = 1 / cards.length;
+        cards.forEach((card, idx) => {
+          const slotStart = idx * SLOT;
+          const isLast = idx === cards.length - 1;
 
-  const onLoadedMetadata = () => {
-    if (videoRef.current && Number.isFinite(videoRef.current.duration)) {
-      setDuration(videoRef.current.duration);
-    }
-  };
+          tl.fromTo(
+            card,
+            { opacity: 0 },
+            { opacity: 1, duration: SLOT * 0.35 },
+            slotStart,
+          );
+
+          if (!isLast) {
+            tl.to(
+              card,
+              { opacity: 0, duration: SLOT * 0.25 },
+              slotStart + SLOT * 0.75,
+            );
+          }
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="features"
       aria-labelledby={headingId}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-          setIsPaused(false);
-        }
-      }}
-      className="bg-surface-tint py-24 sm:py-32 lg:py-40"
+      className="relative bg-[#0b0b0f] text-white"
     >
-      <div className="container-page">
-        {/* Header */}
-        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">
-          <Typography
-            as="h2"
-            id={headingId}
-            variant="display-md"
-            color="primary"
-          >
-            Meet Your DriveCam
-          </Typography>
-          <div className="mt-3">
-            <Typography variant="body-lg" color="secondary">
-              Built to capture every drive with clarity, flexibility, and
-              confidence.
-            </Typography>
-          </div>
-        </div>
+      {/* Sticky cinematic viewport pinned for the duration of the section */}
+      <div
+        ref={viewportRef}
+        className="relative h-screen w-full overflow-hidden"
+      >
+        {/* Ambient backdrop gradient */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_45%,rgba(104,65,230,0.18),transparent_70%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        />
 
-        {/* Showcase card */}
-        <div className="rounded-3xl border border-line bg-white p-6 shadow-card sm:p-10 lg:p-14">
-          <div className="flex flex-col-reverse gap-8 lg:flex-row lg:items-center lg:gap-14">
-            {/* Pill list (left at lg, below video on smaller screens) */}
-            <div
-              role="tablist"
-              aria-label="DriveCam features"
-              aria-orientation="vertical"
-              className="flex flex-col gap-3 sm:gap-4 lg:min-w-0 lg:basis-[42%]"
-            >
-              {FEATURES.map((f, idx) => {
-                const isActive = activeId === f.id;
-                return (
-                  <button
-                    key={f.id}
-                    ref={(el) => {
-                      tabRefs.current[idx] = el;
-                    }}
-                    id={`pill-${f.id}`}
-                    role="tab"
-                    type="button"
-                    aria-selected={isActive}
-                    aria-controls={PANEL_ID}
-                    tabIndex={isActive ? 0 : -1}
-                    onClick={() => setActiveId(f.id)}
-                    onKeyDown={(e) => handleKey(e, idx)}
-                    className={
-                      isActive
-                        ? "w-full rounded-3xl bg-accent-soft px-6 py-5 text-left transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:px-7 sm:py-6"
-                        : "w-full rounded-full border border-line/60 bg-surface-tint px-5 py-3 text-left transition-colors duration-200 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                    }
-                  >
-                    {/* Inactive label: fades and collapses height when expanding */}
-                    <div
-                      className={
-                        isActive
-                          ? "h-0 overflow-hidden opacity-0"
-                          : "opacity-100"
-                      }
-                      aria-hidden={isActive}
-                    >
-                      <Typography
-                        as="span"
-                        variant="body-md"
-                        color="secondary"
+        <div className="container-page relative flex h-full flex-col">
+          {/* Section header — minimal, kept top of viewport */}
+          <header className="pt-[max(env(safe-area-inset-top),5rem)] sm:pt-24 lg:pt-28">
+            <div className="mx-auto max-w-3xl text-center">
+              <Typography
+                as="span"
+                variant="overline"
+                className="!text-white/55"
+              >
+                Meet Your DriveCam
+              </Typography>
+              <div className="mt-3">
+                <Typography
+                  as="h2"
+                  id={headingId}
+                  variant="display-md"
+                  className="!text-white text-balance"
+                >
+                  Built to capture every drive.
+                </Typography>
+              </div>
+            </div>
+          </header>
+
+          {/* Stage: product visual + hinged cards */}
+          <div className="relative flex-1">
+            {/* Mobile/tablet: stacked column. Desktop: split with cards layered to the right. */}
+            <div className="grid h-full grid-rows-[3fr_4fr] items-center gap-6 lg:grid-cols-12 lg:grid-rows-1 lg:gap-10">
+              {/* Persistent DriveCam product visual */}
+              <div className="relative flex items-center justify-center lg:col-span-7">
+                <div className="relative w-full max-w-[640px]">
+                  <div
+                    aria-hidden
+                    className="absolute -inset-12 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(104,65,230,0.22),transparent_60%)] blur-2xl"
+                  />
+                  <video
+                    src={withBasePath("/hero.mp4")}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-hidden="true"
+                    className="block h-auto w-full rounded-3xl"
+                  />
+                </div>
+              </div>
+
+              {/* Hinged card stack */}
+              <div className="relative flex items-center justify-center pb-10 lg:col-span-5 lg:pb-0">
+                <div
+                  className="scene-3d relative w-full max-w-[440px]"
+                  aria-live="polite"
+                >
+                  {/* Reserve consistent height so cards can stack absolutely without collapsing layout */}
+                  <div className="relative aspect-[5/4] sm:aspect-[6/5]">
+                    {FEATURE_CARDS.map((card, idx) => (
+                      <article
+                        key={card.id}
+                        ref={(el) => {
+                          cardRefs.current[idx] = el;
+                        }}
+                        className="hinge-card glass-surface-dark absolute inset-0 flex flex-col justify-between rounded-3xl p-7 sm:p-9"
                       >
-                        {f.pill}
-                      </Typography>
-                    </div>
-
-                    {/* Expanded content: grid-template-rows 0fr -> 1fr animates height */}
-                    <div
-                      className="grid transition-[grid-template-rows] duration-500 ease-out"
-                      style={{
-                        gridTemplateRows: isActive ? "1fr" : "0fr",
-                      }}
-                    >
-                      <div className="overflow-hidden">
-                        <div
-                          className={
-                            isActive
-                              ? "motion-safe:animate-fade-in"
-                              : "invisible"
-                          }
-                          aria-live={isActive ? "polite" : undefined}
+                        <Typography
+                          as="span"
+                          variant="overline"
+                          className="!text-white/55"
                         >
+                          {card.eyebrow}
+                        </Typography>
+                        <div className="mt-auto">
                           <Typography
-                            as="span"
-                            variant="label-lg"
-                            className="!text-accent block"
+                            as="h3"
+                            variant="display-sm"
+                            className="!text-white text-balance"
                           >
-                            {f.title}
+                            {card.headline}
                           </Typography>
-                          <div className="mt-2">
+                          <div className="mt-4 max-w-md">
                             <Typography
                               variant="body-md"
-                              className="!text-ink-soft"
+                              className="!text-white/70"
                             >
-                              {f.description}
+                              {card.description}
                             </Typography>
                           </div>
-
-                          {/* Progress bar — tied to video duration */}
-                          <div
-                            className="mt-5 h-1 w-full overflow-hidden rounded-full bg-accent/20 sm:mt-6"
-                            role="progressbar"
-                            aria-label="Feature playback progress"
-                          >
-                            {isActive && duration && !reducedMotion ? (
-                              <span
-                                key={`${f.id}-${duration}`}
-                                className="block h-full origin-left rounded-full bg-accent"
-                                style={{
-                                  animationName: "progress",
-                                  animationDuration: `${duration}s`,
-                                  animationTimingFunction: "linear",
-                                  animationFillMode: "forwards",
-                                  animationPlayState: isPaused
-                                    ? "paused"
-                                    : "running",
-                                  transform: "scaleX(0)",
-                                }}
-                                onAnimationEnd={advance}
-                              />
-                            ) : (
-                              <span
-                                className="block h-full origin-left rounded-full bg-accent"
-                                style={{ transform: "scaleX(0)" }}
-                              />
-                            )}
-                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Video panel (right at lg, top on smaller screens via flex-col-reverse) */}
-            <div
-              role="tabpanel"
-              id={PANEL_ID}
-              aria-labelledby={`pill-${active.id}`}
-              className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black lg:basis-[58%]"
-            >
-              <video
-                ref={videoRef}
-                key={active.id}
-                src={active.videoSrc}
-                autoPlay
-                muted
-                loop={reducedMotion}
-                playsInline
-                preload="metadata"
-                onLoadedMetadata={onLoadedMetadata}
-                className="absolute inset-0 h-full w-full object-cover motion-safe:animate-fade-in"
-                aria-hidden="true"
-              />
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

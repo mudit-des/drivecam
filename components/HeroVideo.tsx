@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { withBasePath } from "@/lib/assets";
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -14,7 +15,7 @@ export function HeroVideo() {
     <div className="relative mx-auto w-full max-w-[560px]">
       <video
         ref={videoRef}
-        src="/hero.mp4"
+        src={withBasePath("/hero.mp4")}
         autoPlay
         muted
         playsInline
