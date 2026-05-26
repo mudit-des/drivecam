@@ -41,7 +41,7 @@ export function Hero() {
                 color="primary"
                 className="block"
               >
-                Every drive,
+                Protection shouldn&apos;t begin
               </Typography>
               <Typography
                 as="span"
@@ -49,16 +49,18 @@ export function Hero() {
                 color="secondary"
                 className="block"
               >
-                captured with clarity.
+                after something goes wrong.
               </Typography>
             </h1>
 
             <div className="mt-5 max-w-xl mx-auto lg:mx-0">
               <Typography variant="body-lg" color="secondary">
-                India&apos;s roads are full of incidents where the truth is
-                obvious to everyone except the people who matter. A
-                dashcam-linked policy changes that. You&apos;re not just
-                covered financially. You&apos;re protected evidentially.
+                At ACKO, we think protection starts the moment you get on
+                the road. That&apos;s why we built DriveCam—a smarter way
+                to capture what happens around you when it matters most.
+                Whether you&apos;re driving your family or travelling
+                alone, DriveCam helps record the moments that can bring
+                clarity to confusion and confidence during disputes.
               </Typography>
             </div>
 
