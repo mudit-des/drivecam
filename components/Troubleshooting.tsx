@@ -201,55 +201,53 @@ export function Troubleshooting() {
         </div>
 
         {/* Still need help? */}
-        <div className="mt-8 acko-card acko-card-default acko-card-pad-md">
+        <div className="mt-12">
           <Typography as="h3" variant="heading-md" color="primary">
             Still need help?
           </Typography>
-          <ul className="mt-4 flex flex-col gap-3">
-            <li className="flex items-start gap-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {/* Chat — info card (in-app action, no URL) */}
+            <div className="acko-card border border-line bg-surface-tint p-6 sm:p-8 flex flex-col items-start gap-3">
               <MessageCircle
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                className="h-6 w-6 text-ink-muted"
                 strokeWidth={2}
                 aria-hidden
               />
-              <Typography variant="body-md" color="secondary">
-                <span className="font-medium text-ink">In the app</span> —
-                tap Help, start a chat.
+              <Typography variant="body-md" color="primary">
+                Chat in app for help
               </Typography>
-            </li>
-            <li className="flex items-start gap-3">
+            </div>
+
+            {/* Email — full-card link */}
+            <a
+              href="mailto:help@acko.com"
+              className="acko-card border border-line bg-surface-tint p-6 sm:p-8 flex flex-col items-start gap-3"
+            >
               <Mail
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                className="h-6 w-6 text-ink-muted"
                 strokeWidth={2}
                 aria-hidden
               />
-              <Typography variant="body-md" color="secondary">
-                <span className="font-medium text-ink">By email</span> —{" "}
-                <a
-                  href="mailto:help@acko.com"
-                  className="text-accent hover:underline underline-offset-2"
-                >
-                  help@acko.com
-                </a>
+              <Typography variant="body-md" color="primary">
+                help@acko.com
               </Typography>
-            </li>
-            <li className="flex items-start gap-3">
+            </a>
+
+            {/* Phone — full-card link */}
+            <a
+              href="tel:+918002662256"
+              className="acko-card border border-line bg-surface-tint p-6 sm:p-8 flex flex-col items-start gap-3"
+            >
               <Phone
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                className="h-6 w-6 text-ink-muted"
                 strokeWidth={2}
                 aria-hidden
               />
-              <Typography variant="body-md" color="secondary">
-                <span className="font-medium text-ink">By phone</span> —{" "}
-                <a
-                  href="tel:+918002662256"
-                  className="text-accent hover:underline underline-offset-2"
-                >
-                  1800 266 2256
-                </a>
+              <Typography variant="body-md" color="primary">
+                1800 266 2256
               </Typography>
-            </li>
-          </ul>
+            </a>
+          </div>
         </div>
       </div>
     </section>

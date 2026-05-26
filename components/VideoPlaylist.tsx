@@ -220,19 +220,14 @@ export function VideoPlaylist() {
       <div className="container-page">
         {/* Section header */}
         <div className="mb-10 max-w-3xl">
-          <Typography variant="overline" color="brand">
-            Installation guide
+          <Typography
+            as="h2"
+            id={headingId}
+            variant="display-sm"
+            color="primary"
+          >
+            Set it up in minutes
           </Typography>
-          <div className="mt-2">
-            <Typography
-              as="h2"
-              id={headingId}
-              variant="display-sm"
-              color="primary"
-            >
-              Set it up in minutes
-            </Typography>
-          </div>
           <div className="mt-3">
             <Typography variant="body-md" color="secondary">
               We made a video. Actually, we made nineteen.
