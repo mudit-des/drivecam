@@ -30,7 +30,7 @@ export function Hero() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
           {/* Left: copy */}
-          <div className="lg:col-span-6">
+          <div className="order-2 text-center lg:order-none lg:col-span-6 lg:text-left">
             <h1
               id="hero-heading"
               className="mt-6 text-balance"
@@ -53,15 +53,16 @@ export function Hero() {
               </Typography>
             </h1>
 
-            <div className="mt-5 max-w-xl">
+            <div className="mt-5 max-w-xl mx-auto lg:mx-0">
               <Typography variant="body-lg" color="secondary">
-                Congrats on getting your ACKO DriveCam. We will help you get
-                started. Find all resources needed to install and run your
-                DriveCam on this page.
+                India&apos;s roads are full of incidents where the truth is
+                obvious to everyone except the people who matter. A
+                dashcam-linked policy changes that. You&apos;re not just
+                covered financially. You&apos;re protected evidentially.
               </Typography>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Link
                 href="#features"
                 className="acko-btn acko-btn-primary acko-btn-lg"
@@ -86,7 +87,7 @@ export function Hero() {
               </Link>
             </div>
 
-            <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start">
               {TRUST_POINTS.map(({ icon: Icon, label }) => (
                 <li key={label} className="inline-flex items-center gap-2">
                   <Icon className="h-4 w-4 text-ink-muted" strokeWidth={2} />
@@ -99,7 +100,7 @@ export function Hero() {
           </div>
 
           {/* Right: hero video */}
-          <div className="relative lg:col-span-6">
+          <div className="relative order-1 lg:order-none lg:col-span-6">
             <HeroVideo />
           </div>
         </div>

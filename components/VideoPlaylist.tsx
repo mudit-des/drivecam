@@ -230,31 +230,13 @@ export function VideoPlaylist() {
               variant="display-sm"
               color="primary"
             >
-              Setup Your DriveCam
+              Set it up in minutes
             </Typography>
           </div>
           <div className="mt-3">
             <Typography variant="body-md" color="secondary">
-              Step-by-step videos for setup, pairing, firmware updates, SD
-              card handling, and common DriveCam fixes.
+              We made a video. Actually, we made nineteen.
             </Typography>
-          </div>
-
-          {/* CTAs: one primary, one quiet link */}
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <Link
-              href={PLAYLIST_URL}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="acko-btn acko-btn-primary acko-btn-md"
-            >
-              <span className="acko-btn-content">
-                <span className="acko-btn-icon">
-                  <ExternalLink className="h-4 w-4" />
-                </span>
-                <span className="acko-btn-label">Open on YouTube</span>
-              </span>
-            </Link>
           </div>
         </div>
 
@@ -304,22 +286,38 @@ export function VideoPlaylist() {
             className="acko-card flex flex-col overflow-hidden border border-line bg-white"
           >
             {/* Playlist header */}
-            <div className="border-b border-line px-4 py-3">
-              <Typography
-                as="span"
-                variant="label-md"
-                color="primary"
-                className="block truncate"
+            <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
+              <div className="min-w-0">
+                <Typography
+                  as="span"
+                  variant="label-md"
+                  color="primary"
+                  className="block truncate"
+                >
+                  {PLAYLIST_TITLE}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="secondary"
+                  className="mt-0.5 block truncate"
+                >
+                  {CHANNEL_NAME} · {TOTAL_VIDEOS} videos
+                </Typography>
+              </div>
+              <Link
+                href={PLAYLIST_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={`Open ${PLAYLIST_TITLE} playlist on YouTube`}
+                className="acko-btn acko-btn-secondary acko-btn-xs flex-shrink-0"
               >
-                {PLAYLIST_TITLE}
-              </Typography>
-              <Typography
-                variant="caption"
-                color="secondary"
-                className="mt-0.5 block truncate"
-              >
-                {CHANNEL_NAME} · {TOTAL_VIDEOS} videos
-              </Typography>
+                <span className="acko-btn-content">
+                  <span className="acko-btn-icon">
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="acko-btn-label">Open on YouTube</span>
+                </span>
+              </Link>
             </div>
 
             {/* Scrollable list */}

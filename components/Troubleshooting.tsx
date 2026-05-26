@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Mail, MessageCircle, Phone } from "lucide-react";
 import { Typography } from "@acko/typography";
 import { Separator } from "@acko/separator";
 
@@ -198,6 +198,58 @@ export function Troubleshooting() {
           {FAQ_GROUPS.map((group) => (
             <FaqGroupSection key={group.id} group={group} />
           ))}
+        </div>
+
+        {/* Still need help? */}
+        <div className="mt-8 acko-card acko-card-default acko-card-pad-md">
+          <Typography as="h3" variant="heading-md" color="primary">
+            Still need help?
+          </Typography>
+          <ul className="mt-4 flex flex-col gap-3">
+            <li className="flex items-start gap-3">
+              <MessageCircle
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                strokeWidth={2}
+                aria-hidden
+              />
+              <Typography variant="body-md" color="secondary">
+                <span className="font-medium text-ink">In the app</span> —
+                tap Help, start a chat.
+              </Typography>
+            </li>
+            <li className="flex items-start gap-3">
+              <Mail
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                strokeWidth={2}
+                aria-hidden
+              />
+              <Typography variant="body-md" color="secondary">
+                <span className="font-medium text-ink">By email</span> —{" "}
+                <a
+                  href="mailto:help@acko.com"
+                  className="text-accent hover:underline underline-offset-2"
+                >
+                  help@acko.com
+                </a>
+              </Typography>
+            </li>
+            <li className="flex items-start gap-3">
+              <Phone
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-muted"
+                strokeWidth={2}
+                aria-hidden
+              />
+              <Typography variant="body-md" color="secondary">
+                <span className="font-medium text-ink">By phone</span> —{" "}
+                <a
+                  href="tel:+918002662256"
+                  className="text-accent hover:underline underline-offset-2"
+                >
+                  1800 266 2256
+                </a>
+              </Typography>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

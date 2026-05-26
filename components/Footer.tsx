@@ -214,7 +214,7 @@ function FooterLink({ item }: { item: FooterItem }) {
       rel={isExternal ? "noreferrer noopener" : undefined}
       className="inline-block text-white/70 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:underline"
     >
-      <Typography as="span" variant="body-sm">
+      <Typography as="span" variant="body-sm" className="!text-inherit">
         {label}
       </Typography>
     </Link>

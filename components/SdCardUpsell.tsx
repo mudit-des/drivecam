@@ -1,7 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Typography } from "@acko/typography";
+
+const RECOMMENDED_CARDS = [
+  {
+    name: "Samsung PRO Endurance microSD",
+    href: "https://www.amazon.in/s?k=Samsung+PRO+Endurance+microSD",
+  },
+  {
+    name: "SanDisk High Endurance microSD",
+    href: "https://www.amazon.in/s?k=SanDisk+High+Endurance+microSD",
+  },
+  {
+    name: "Lexar Professional 1066x microSD",
+    href: "https://www.amazon.in/s?k=Lexar+Professional+1066x+microSD",
+  },
+] as const;
+
+const CARD_LINK_CLASS =
+  "inline-flex items-center gap-1 font-medium text-ink hover:text-accent hover:underline underline-offset-2";
 
 export function SdCardUpsell() {
   return (
@@ -12,14 +30,41 @@ export function SdCardUpsell() {
     >
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
 
-        {/* SD card illustration */}
-        <div className="mx-auto flex-shrink-0 sm:mx-0">
+        {/* SD card cluster — fanned upward from a common left-edge pivot */}
+        <div className="relative mx-auto h-[120px] w-[100px] flex-shrink-0 sm:mx-0 sm:h-[150px] sm:w-[125px]">
           <Image
-            src="/microsd-front.png"
-            alt="3D rendering of a microSD memory card"
-            width={160}
-            height={160}
+            src="/lexar-silver-plus.png"
+            alt="Lexar Silver Plus microSDXC memory card"
+            width={100}
+            height={100}
+            className="absolute left-0 top-1/2 z-10 h-auto w-[80px] object-contain drop-shadow-md sm:w-[100px]"
+            style={{
+              transformOrigin: "0% 50%",
+              transform: "translateY(-50%) rotate(-30deg)",
+            }}
+          />
+          <Image
+            src="/sandisk-extreme-pro.png"
+            alt="SanDisk Extreme PRO microSDXC memory card"
+            width={100}
+            height={100}
+            className="absolute left-0 top-1/2 z-10 h-auto w-[80px] object-contain drop-shadow-md sm:w-[100px]"
+            style={{
+              transformOrigin: "0% 50%",
+              transform: "translateY(-50%) rotate(-15deg)",
+            }}
+          />
+          <Image
+            src="/samsung-pro-endurance.png"
+            alt="Samsung PRO Endurance microSDXC memory card"
+            width={100}
+            height={100}
             priority
+            className="absolute left-0 top-1/2 z-20 h-auto w-[80px] object-contain drop-shadow-lg sm:w-[100px]"
+            style={{
+              transformOrigin: "0% 50%",
+              transform: "translateY(-50%) rotate(0deg)",
+            }}
           />
         </div>
 
@@ -32,26 +77,55 @@ export function SdCardUpsell() {
 
           {/* Supporting copy */}
           <Typography variant="body-md" color="secondary">
-            Your DriveCam requires a <strong>Class 10 / UHS-I microSD card</strong> (up
-            to 128 GB) for reliable loop recording and emergency clip storage.
-            Without a compatible high-speed card, footage won&apos;t save
-            correctly and recording reliability may be affected.
+            DriveCam writes footage non-stop, every time you drive. A regular
+            phone card wears out quietly — you won&apos;t know until you need
+            the recording and it isn&apos;t there. Use an endurance-rated
+            card. <strong>Class 10 / U3 / V30.</strong> Built for continuous
+            writes. Built to last. Storage up to <strong>512GB</strong>{" "}
+            supported.
           </Typography>
 
-          {/* CTA */}
+          {/* Inline recommendations */}
           <div className="mt-1">
-            <Link
-              href="#"
-              className="acko-btn acko-btn-primary acko-btn-md"
-              aria-label="Order a compatible SD card for your DriveCam"
+            <Typography variant="overline" color="secondary">
+              Recommended
+            </Typography>
+            <Typography
+              variant="body-md"
+              color="secondary"
+              className="mt-1.5 block"
             >
-              <span className="acko-btn-content">
-                <span className="acko-btn-icon">
-                  <ShoppingCart className="h-4 w-4" />
-                </span>
-                <span className="acko-btn-label">Order Now</span>
-              </span>
-            </Link>
+              <Link
+                href={RECOMMENDED_CARDS[0].href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={CARD_LINK_CLASS}
+              >
+                {RECOMMENDED_CARDS[0].name}
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+              ,{" "}
+              <Link
+                href={RECOMMENDED_CARDS[1].href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={CARD_LINK_CLASS}
+              >
+                {RECOMMENDED_CARDS[1].name}
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+              , or{" "}
+              <Link
+                href={RECOMMENDED_CARDS[2].href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={CARD_LINK_CLASS}
+              >
+                {RECOMMENDED_CARDS[2].name}
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+              .
+            </Typography>
           </div>
         </div>
       </div>
