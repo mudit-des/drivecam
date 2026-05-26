@@ -43,6 +43,18 @@
     -webkit-backdrop-filter: saturate(140%) blur(14px);
   }
 
+  .scene-3d {
+    perspective: 1500px;
+    perspective-origin: 50% 60%;
+  }
+
+  .hinge-card {
+    transform-origin: 50% 100%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

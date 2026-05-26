@@ -7,6 +7,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        desktop: "1200px",
+      },
       colors: {
         // ACKO-aligned palette that mirrors the token values from @acko/tokens.
         // Primitive greys (matches --grey* in tokens.css).
