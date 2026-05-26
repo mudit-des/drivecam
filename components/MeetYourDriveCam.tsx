@@ -4,12 +4,11 @@ import { useId, useState } from "react";
 import { Typography } from "@acko/typography";
 import { withBasePath } from "@/lib/assets";
 
-const HERO_SRC = "/hero.mp4";
-
 interface Feature {
   id: string;
   title: string;
   description: string;
+  videoSrc: string;
 }
 
 const FEATURES: readonly Feature[] = [
@@ -18,18 +17,21 @@ const FEATURES: readonly Feature[] = [
     title: "Night Vision",
     description:
       "Enhanced night vision captures sharper details in low-light conditions, helping you keep a reliable record of every drive.",
+    videoSrc: "/videos/night-vision.mp4",
   },
   {
     id: "flip-camera",
     title: "360° Flip Camera",
     description:
       "The rotating camera lets you record the road ahead, inside the cabin, or anywhere in between.",
+    videoSrc: "/videos/flip-camera.mp4",
   },
   {
     id: "quad-hd",
     title: "Superior Quad HD Recording",
     description:
       "Capture sharper footage with greater detail and clarity when every moment matters.",
+    videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
 
@@ -57,19 +59,24 @@ export function MeetYourDriveCam() {
           </Typography>
         </header>
 
-        {/* 2. Product showcase */}
+        {/* 2. Product showcase — feature-matched video crossfades on activeIndex */}
         <div className="mt-12 lg:mt-20">
-          <div className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-4xl bg-white shadow-card">
-            <video
-              src={withBasePath(HERO_SRC)}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-hidden="true"
-              className="block aspect-video w-full object-cover"
-            />
+          <div className="relative mx-auto aspect-video w-full max-w-[1080px] overflow-hidden rounded-4xl bg-white shadow-card">
+            {FEATURES.map((feat, idx) => (
+              <video
+                key={feat.id}
+                src={withBasePath(feat.videoSrc)}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out ${
+                  idx === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
           </div>
         </div>
 
