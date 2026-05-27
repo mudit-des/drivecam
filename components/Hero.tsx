@@ -41,7 +41,7 @@ export function Hero() {
                 color="primary"
                 className="block"
               >
-                Protection shouldn&apos;t begin
+                Protection starts
               </Typography>
               <Typography
                 as="span"
@@ -49,18 +49,15 @@ export function Hero() {
                 color="secondary"
                 className="block"
               >
-                after something goes wrong.
+                the moment you hit the road.
               </Typography>
             </h1>
 
             <div className="mt-5 max-w-xl mx-auto lg:mx-0">
               <Typography variant="body-lg" color="secondary">
-                At ACKO, we think protection starts the moment you get on
-                the road. That&apos;s why we built DriveCam—a smarter way
-                to capture what happens around you when it matters most.
-                Whether you&apos;re driving your family or travelling
-                alone, DriveCam helps record the moments that can bring
-                clarity to confusion and confidence during disputes.
+                The ACKO DriveCam records what matters most—helping bring
+                clarity during disputes, whether you&apos;re driving
+                alone or with family.
               </Typography>
             </div>
 
@@ -84,14 +81,14 @@ export function Hero() {
                   <span className="acko-btn-icon">
                     <BookOpen className="h-5 w-5" />
                   </span>
-                  <span className="acko-btn-label">Setup Guide</span>
+                  <span className="acko-btn-label">Setup DriveCam</span>
                 </span>
               </Link>
             </div>
 
-            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start">
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 lg:flex-nowrap lg:justify-start lg:gap-x-5">
               {TRUST_POINTS.map(({ icon: Icon, label }) => (
-                <li key={label} className="inline-flex items-center gap-2">
+                <li key={label} className="inline-flex items-center gap-2 whitespace-nowrap">
                   <Icon className="h-4 w-4 text-ink-muted" strokeWidth={2} />
                   <Typography variant="label-md" color="secondary">
                     {label}

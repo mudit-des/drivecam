@@ -33,7 +33,7 @@ export function TechSpecsTable() {
             variant="display-sm"
             color="primary"
           >
-            The details
+            Tech Specs
           </Typography>
         </div>
 

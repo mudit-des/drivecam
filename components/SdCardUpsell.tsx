@@ -73,17 +73,14 @@ export function SdCardUpsell() {
         <div className="flex flex-col gap-3 flex-1">
           {/* Headline */}
           <Typography as="h3" variant="heading-md" color="primary">
-            Make sure you have the right MicroSD card before setup.
+            Get the right MicroSD card before you start.
           </Typography>
 
           {/* Supporting copy */}
           <Typography variant="body-md" color="secondary">
-            DriveCam writes footage non-stop, every time you drive. A regular
-            phone card wears out quietly — you won&apos;t know until you need
-            the recording and it isn&apos;t there. Use an endurance-rated
-            card. <strong>Class 10 / U3 / V30.</strong> Built for continuous
-            writes. Built to last. Storage up to <strong>512GB</strong>{" "}
-            supported.
+            DriveCam records continuously, so use an endurance-rated card built
+            for constant writing. <strong>Class 10, U3, V30.</strong> Supports
+            up to <strong>512GB</strong>.
           </Typography>
 
           {/* Inline recommendations */}
