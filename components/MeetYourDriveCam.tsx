@@ -17,31 +17,31 @@ interface FeatureCard {
 
 const CARDS: readonly FeatureCard[] = [
   {
-    id: "front-rear",
+    id: "night-vision",
     number: "01",
-    category: "Front & Rear Camera Coverage",
-    headline: "Protection from every angle",
+    category: "Night Vision",
+    headline: "See clearly even when the road doesn't.",
     description:
-      "Dual cameras continuously capture what happens ahead and behind your vehicle, helping provide evidence when you need it most.",
-    videoSrc: "/videos/flip-camera.mp4",
-  },
-  {
-    id: "parking",
-    number: "02",
-    category: "Parking Surveillance",
-    headline: "Watching even when you're away",
-    description:
-      "Keeps an eye on your vehicle while parked and records suspicious activity or impacts, even when you're not around.",
+      "Enhanced low-light recording for nighttime incidents.",
     videoSrc: "/videos/night-vision.mp4",
   },
   {
-    id: "instant-access",
-    number: "03",
-    category: "Instant Access to Footage",
-    headline: "Your recordings, always within reach",
+    id: "in-cabin",
+    number: "02",
+    category: "In-Cabin Recording",
+    headline: "Record inside the cabin, too",
     description:
-      "Review, download, and manage important recordings directly from the DriveCam app whenever you need them.",
-    videoSrc: "/hero.mp4",
+      "The 360 degree flip camera rotates to face inside the vehicle, capturing cabin moments alongside the road ahead.",
+    videoSrc: "/videos/flip-camera.mp4",
+  },
+  {
+    id: "quad-hd",
+    number: "03",
+    category: "Superior Quad HD Recording",
+    headline: "The full picture, not just a slice.",
+    description:
+      "QHD clarity. 150°+ field of view. The full picture of what happened — not just a slice of it.",
+    videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
 
@@ -78,7 +78,13 @@ export function MeetYourDriveCam() {
       if (cards.length === 0) return;
 
       // Reset everything to a calm visible state.
-      gsap.set(cards, { y: 0, scale: 1, force3D: true });
+      gsap.set(cards, {
+        rotateX: 0,
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        force3D: true,
+      });
 
       const mm = gsap.matchMedia();
 
@@ -108,13 +114,18 @@ export function MeetYourDriveCam() {
             return;
           }
 
-          // Desktop / tablet stack mechanic.
-          gsap.set(cards[0], { y: 0, yPercent: 0, scale: 1 });
-          gsap.set(cards[1], { y: 0, yPercent: 120, scale: 0.985 });
-          gsap.set(cards[2], { y: 0, yPercent: 120, scale: 0.97 });
+          // Desktop / tablet peel-up stack mechanic.
+          // Cards 2 and 3 sit slightly above the active card with smaller
+          // scale, so their tops visibly peek above card 1 from first paint.
+          // During each transition only the peeling card and the incoming
+          // card animate; the third holds in place. Active cards keep scale
+          // 1 throughout their peel so the video never visibly resizes.
+          gsap.set(cards[0], { y: 0, scale: 1, rotateX: 0, opacity: 1 });
+          gsap.set(cards[1], { y: -32, scale: 0.97, rotateX: 0, opacity: 1 });
+          gsap.set(cards[2], { y: -64, scale: 0.94, rotateX: 0, opacity: 1 });
 
           const tl = gsap.timeline({
-            defaults: { ease: "power2.out", force3D: true },
+            defaults: { ease: "power2.inOut", force3D: true },
             scrollTrigger: {
               trigger: stackRef.current,
               start: "top top",
@@ -126,39 +137,82 @@ export function MeetYourDriveCam() {
             },
           });
 
-          const HALF = 0.5;
-          const SHIFT_PX = 24;
+          // Timeline structure (ranges in 0..1 of the pinned scroll):
+          //   0.00 -> 0.25  card 1 rest (reader consumes copy)
+          //   0.25 -> 0.50  phase 1: card 1 peels, card 2 grows to active
+          //   0.50 -> 0.75  card 2 rest
+          //   0.75 -> 1.00  phase 2: card 2 peels, card 3 grows to active
+          const PHASE1_START = 0.25;
+          const PHASE2_START = 0.75;
+          const PHASE_DUR = 0.25;
+          const LIFT_PX = -240;
+          const TILT_DEG = -14;
+          const FADE_RATIO = 0.75; // hold visibility through 75% of phase, then commit
 
-          // Phase 1 (0 -> HALF): card 2 lands; card 1 shifts down + scales.
+          // Phase 1: card 1 peels up; card 2 lands at active position.
           tl.to(
-            cards[1],
-            { yPercent: 0, scale: 1, duration: HALF },
-            0,
+            cards[0],
+            {
+              y: LIFT_PX,
+              rotateX: TILT_DEG,
+              duration: PHASE_DUR,
+              ease: "power3.in",
+            },
+            PHASE1_START,
           );
           tl.to(
             cards[0],
-            { y: SHIFT_PX, scale: 0.985, duration: HALF },
-            0,
+            {
+              opacity: 0,
+              duration: PHASE_DUR * (1 - FADE_RATIO),
+              ease: "power2.in",
+            },
+            PHASE1_START + PHASE_DUR * FADE_RATIO,
+          );
+          tl.to(
+            cards[1],
+            {
+              y: 0,
+              scale: 1,
+              duration: PHASE_DUR,
+              ease: "power2.out",
+            },
+            PHASE1_START,
           );
 
-          // Phase 2 (HALF -> 1): card 3 lands; card 2 shifts down + scales; card 1 shifts further.
+          // Phase 2: card 2 peels up; card 3 lands at active position.
+          tl.to(
+            cards[1],
+            {
+              y: LIFT_PX,
+              rotateX: TILT_DEG,
+              duration: PHASE_DUR,
+              ease: "power3.in",
+            },
+            PHASE2_START,
+          );
+          tl.to(
+            cards[1],
+            {
+              opacity: 0,
+              duration: PHASE_DUR * (1 - FADE_RATIO),
+              ease: "power2.in",
+            },
+            PHASE2_START + PHASE_DUR * FADE_RATIO,
+          );
           tl.to(
             cards[2],
-            { yPercent: 0, scale: 1, duration: HALF },
-            HALF,
-          );
-          tl.to(
-            cards[1],
-            { y: SHIFT_PX, scale: 0.985, duration: HALF },
-            HALF,
-          );
-          tl.to(
-            cards[0],
-            { y: SHIFT_PX * 2, scale: 0.97, duration: HALF },
-            HALF,
+            {
+              y: 0,
+              scale: 1,
+              duration: PHASE_DUR,
+              ease: "power2.out",
+            },
+            PHASE2_START,
           );
 
-          // Active-video swap based on scroll progress.
+          // Active-video swap. Fires at the midpoint of each transition so
+          // the video flips when the visual handoff is most balanced.
           let lastActive = -1;
           ScrollTrigger.create({
             trigger: stackRef.current,
@@ -166,10 +220,8 @@ export function MeetYourDriveCam() {
             end: "bottom bottom",
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-              const idx = Math.min(
-                2,
-                Math.max(0, Math.floor(self.progress * 3)),
-              );
+              const p = self.progress;
+              const idx = p < 0.375 ? 0 : p < 0.875 ? 1 : 2;
               if (idx !== lastActive) {
                 if (lastActive >= 0) videos[lastActive]?.pause();
                 playVideo(videos[idx]);
@@ -215,11 +267,12 @@ export function MeetYourDriveCam() {
       {/* Stack scroll range — 300vh on md+, normal flow on mobile */}
       <div
         ref={stackRef}
-        className="relative md:h-[300vh]"
+        className="relative md:h-[400vh]"
       >
         <div
           ref={pinRef}
           className="space-y-12 pb-24 md:flex md:h-screen md:items-center md:justify-center md:space-y-0 md:overflow-hidden md:pb-0"
+          style={{ perspective: "1200px", perspectiveOrigin: "50% 30%" }}
         >
           {CARDS.map((card, i) => (
             <article
@@ -227,11 +280,11 @@ export function MeetYourDriveCam() {
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="relative mx-4 flex w-[calc(100%-2rem)] max-w-[1180px] flex-col gap-6 overflow-hidden rounded-[32px] bg-white p-8 shadow-floating will-change-transform sm:mx-6 sm:w-[calc(100%-3rem)] sm:p-10 md:absolute md:inset-x-0 md:top-1/2 md:mx-auto md:h-[640px] md:-translate-y-1/2 lg:flex-row lg:items-stretch lg:gap-12 lg:p-14 lg:h-[680px]"
-              style={{ zIndex: i + 1 }}
+              className="relative mx-4 flex w-[calc(100%-2rem)] max-w-[1180px] flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-white p-8 shadow-floating will-change-transform sm:mx-6 sm:w-[calc(100%-3rem)] sm:p-10 md:absolute md:inset-x-0 md:top-1/2 md:mx-auto md:h-[640px] md:-translate-y-1/2 lg:flex-row lg:items-stretch lg:gap-12 lg:p-14 lg:h-[680px]"
+              style={{ zIndex: CARDS.length - i }}
             >
               {/* Left 45% on desktop */}
-              <div className="flex flex-col justify-between lg:w-[45%]">
+              <div className="flex flex-col justify-center text-center lg:w-[45%] lg:text-left">
                 <div>
                   <Typography
                     as="span"
@@ -250,7 +303,7 @@ export function MeetYourDriveCam() {
                     </Typography>
                   </div>
                 </div>
-                <div className="mt-8 lg:mt-0">
+                <div className="mt-6">
                   <Typography
                     as="h3"
                     variant="display-sm"
@@ -267,7 +320,7 @@ export function MeetYourDriveCam() {
               </div>
 
               {/* Right 55% on desktop */}
-              <div className="lg:w-[55%]">
+              <div className="mx-auto w-full max-w-[480px] lg:mx-0 lg:max-w-none lg:w-[55%]">
                 <div className="aspect-video w-full overflow-hidden rounded-3xl bg-ink/5 lg:aspect-auto lg:h-full">
                   <video
                     ref={(el) => {

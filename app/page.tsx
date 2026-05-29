@@ -5,7 +5,6 @@ import { Navbar } from "@/components/Navbar";
 import { TechSpecsTable } from "@/components/TechSpecsTable";
 import { Troubleshooting } from "@/components/Troubleshooting";
 import { VideoPlaylist } from "@/components/VideoPlaylist";
-import { WideAngleShowcase } from "@/components/WideAngleShowcase";
 
 export default function Home() {
   return (
@@ -13,7 +12,6 @@ export default function Home() {
       <Navbar />
       <Hero />
       <MeetYourDriveCam />
-      <WideAngleShowcase />
       <TechSpecsTable />
       <VideoPlaylist />
       <Troubleshooting />
