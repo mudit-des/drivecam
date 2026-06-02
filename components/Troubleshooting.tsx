@@ -40,8 +40,8 @@ export function Troubleshooting() {
       className="py-20 sm:py-28"
     >
       <div className="container-page">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="min-w-0">
+        <div className="mb-8">
+          <div className="flex items-center justify-between gap-4">
             <Typography
               as="h2"
               id="faqs-heading"
@@ -50,26 +50,25 @@ export function Troubleshooting() {
             >
               Troubleshooting &amp; FAQs
             </Typography>
-            <div className="mt-3 max-w-2xl">
-              <Typography variant="body-lg" color="secondary">
-                Running into an issue? Find answers to the most common DriveCam
-                questions below.
-              </Typography>
-            </div>
-          </div>
-
-          <Link
-            href="/faqs"
-            aria-label="View all troubleshooting articles and FAQs"
-            className="acko-btn acko-btn-secondary acko-btn-sm flex-shrink-0 self-start sm:self-end"
-          >
-            <span className="acko-btn-content">
-              <span className="acko-btn-label">View all</span>
-              <span className="acko-btn-icon">
-                <ArrowRight className="h-4 w-4" />
+            <Link
+              href="/faqs"
+              aria-label="View all troubleshooting articles and FAQs"
+              className="acko-btn acko-btn-secondary acko-btn-sm flex-shrink-0"
+            >
+              <span className="acko-btn-content">
+                <span className="acko-btn-label">View all</span>
+                <span className="acko-btn-icon">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
               </span>
-            </span>
-          </Link>
+            </Link>
+          </div>
+          <div className="mt-3 max-w-2xl">
+            <Typography variant="body-lg" color="secondary">
+              Running into an issue? Find answers to the most common DriveCam
+              questions below.
+            </Typography>
+          </div>
         </div>
 
         <div className="mb-8">

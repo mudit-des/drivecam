@@ -137,16 +137,26 @@ export function MeetYourDriveCam() {
             },
           });
 
-          // Timeline structure (ranges in 0..1 of the pinned scroll):
-          //   0.00 -> 0.25  card 1 rest (reader consumes copy)
-          //   0.25 -> 0.50  phase 1: card 1 peels, card 2 grows to active
-          //   0.50 -> 0.75  card 2 rest
-          //   0.75 -> 1.00  phase 2: card 2 peels, card 3 grows to active
-          const PHASE1_START = 0.25;
-          const PHASE2_START = 0.75;
-          const PHASE_DUR = 0.25;
+          // Timeline structure. Scroll range is 470vh (see stackRef class);
+          // each existing phase keeps the same absolute 100vh of scroll it
+          // had at 400vh, and the trailing 70vh hosts the card 3 hinge.
+          //
+          //   0.000 -> 0.213  card 1 rest (reader consumes copy)
+          //   0.213 -> 0.426  phase 1: card 1 peels, card 2 grows to active
+          //   0.426 -> 0.638  card 2 rest
+          //   0.638 -> 0.851  phase 2: card 2 peels, card 3 grows to active
+          //   0.851 -> 1.000  hinge: card 3 pivots 0 -> -6deg -> 0 around top
+          const STACK_VH = 470;
+          const PHASE_VH = 100;
+          const HINGE_VH = 70;
+          const PHASE_DUR = PHASE_VH / STACK_VH;
+          const PHASE1_START = PHASE_VH / STACK_VH;       // 100vh from top
+          const PHASE2_START = (3 * PHASE_VH) / STACK_VH; // 300vh from top
+          const HINGE_START = (4 * PHASE_VH) / STACK_VH;  // 400vh from top
+          const HINGE_DUR = HINGE_VH / STACK_VH;
           const LIFT_PX = -240;
           const TILT_DEG = -14;
+          const HINGE_TILT_DEG = -6;
           const FADE_RATIO = 0.75; // hold visibility through 75% of phase, then commit
 
           // Phase 1: card 1 peels up; card 2 lands at active position.
@@ -211,8 +221,45 @@ export function MeetYourDriveCam() {
             PHASE2_START,
           );
 
+          // Hinge: once card 3 has landed, the stack feels physically attached
+          // to a hinge along card 3's top edge. The pivot eases in to -6deg
+          // and resolves back to flat so the section unpins in its original
+          // visual state. Origin is switched only for this segment; cards 1
+          // and 2 keep their default center origin used by the peel motion.
+          tl.set(
+            cards[2],
+            { transformOrigin: "50% 0%" },
+            HINGE_START,
+          );
+          tl.to(
+            cards[2],
+            {
+              rotateX: HINGE_TILT_DEG,
+              duration: HINGE_DUR / 2,
+              ease: "sine.inOut",
+            },
+            HINGE_START,
+          );
+          tl.to(
+            cards[2],
+            {
+              rotateX: 0,
+              duration: HINGE_DUR / 2,
+              ease: "sine.inOut",
+            },
+            HINGE_START + HINGE_DUR / 2,
+          );
+          tl.set(
+            cards[2],
+            { transformOrigin: "50% 50%" },
+            ">",
+          );
+
           // Active-video swap. Fires at the midpoint of each transition so
-          // the video flips when the visual handoff is most balanced.
+          // the video flips when the visual handoff is most balanced. Card 3
+          // stays the active video through the hinge segment.
+          const PHASE1_MID = PHASE1_START + PHASE_DUR / 2;
+          const PHASE2_MID = PHASE2_START + PHASE_DUR / 2;
           let lastActive = -1;
           ScrollTrigger.create({
             trigger: stackRef.current,
@@ -221,7 +268,7 @@ export function MeetYourDriveCam() {
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const p = self.progress;
-              const idx = p < 0.375 ? 0 : p < 0.875 ? 1 : 2;
+              const idx = p < PHASE1_MID ? 0 : p < PHASE2_MID ? 1 : 2;
               if (idx !== lastActive) {
                 if (lastActive >= 0) videos[lastActive]?.pause();
                 playVideo(videos[idx]);
@@ -264,10 +311,12 @@ export function MeetYourDriveCam() {
         </div>
       </div>
 
-      {/* Stack scroll range — 300vh on md+, normal flow on mobile */}
+      {/* Stack scroll range — 470vh on md+, normal flow on mobile.
+          400vh hosts the existing card 1/2 peel timeline at identical scroll
+          distances; the trailing 70vh is dedicated to card 3's hinge. */}
       <div
         ref={stackRef}
-        className="relative md:h-[400vh]"
+        className="relative md:h-[470vh]"
       >
         <div
           ref={pinRef}
