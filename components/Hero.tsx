@@ -4,9 +4,9 @@ import { Typography } from "@acko/typography";
 import { HeroVideo } from "./HeroVideo";
 
 const TRUST_POINTS = [
-  { icon: Wifi,     label: "Plug & play setup"        },
+  { icon: Wifi,     label: "Set up in 2 minutes"      },
   { icon: Video,    label: "1440p QHD recording"      },
-  { icon: Aperture, label: "156° wide angle viewing"  },
+  { icon: Aperture, label: "156° wide-angle view"     },
 ];
 
 export function Hero() {
@@ -55,9 +55,8 @@ export function Hero() {
 
             <div className="mt-5 max-w-xl mx-auto lg:mx-0">
               <Typography variant="body-lg" color="secondary">
-                The ACKO DriveCam records what matters most—helping bring
-                clarity during disputes, whether you&apos;re driving
-                alone or with family.
+                Crystal-clear footage of every drive. So when something
+                happens, you&apos;ve got proof. Not arguments.
               </Typography>
             </div>
 
@@ -70,7 +69,7 @@ export function Hero() {
                   <span className="acko-btn-icon">
                     <PlayCircle className="h-5 w-5" />
                   </span>
-                  <span className="acko-btn-label">Explore Features</span>
+                  <span className="acko-btn-label">Explore features</span>
                 </span>
               </Link>
               <Link
@@ -81,7 +80,7 @@ export function Hero() {
                   <span className="acko-btn-icon">
                     <BookOpen className="h-5 w-5" />
                   </span>
-                  <span className="acko-btn-label">Setup DriveCam</span>
+                  <span className="acko-btn-label">Set it up</span>
                 </span>
               </Link>
             </div>

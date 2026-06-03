@@ -20,27 +20,27 @@ const CARDS: readonly FeatureCard[] = [
     id: "night-vision",
     number: "01",
     category: "Night Vision",
-    headline: "See clearly even when the road doesn't.",
+    headline: "Crystal-clear, even at night.",
     description:
-      "Enhanced low-light recording for nighttime incidents.",
+      "Low-light recording that doesn't quit after dark.",
     videoSrc: "/videos/night-vision.mp4",
   },
   {
     id: "in-cabin",
     number: "02",
     category: "In-Cabin Recording",
-    headline: "Record inside the cabin, too",
+    headline: "Eyes inside the cabin, too.",
     description:
-      "The 360 degree flip camera rotates to face inside the vehicle, capturing cabin moments alongside the road ahead.",
+      "Flip the camera 360° to record the cabin alongside the road ahead.",
     videoSrc: "/videos/flip-camera.mp4",
   },
   {
     id: "quad-hd",
     number: "03",
-    category: "Superior Quad HD Recording",
-    headline: "The full picture, not just a slice.",
+    category: "Quad HD Recording",
+    headline: "Quad HD. 150°+ wide.",
     description:
-      "QHD clarity. 150°+ field of view. The full picture of what happened — not just a slice of it.",
+      "See exactly what happened. Every angle. In QHD.",
     videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
@@ -302,8 +302,7 @@ export function MeetYourDriveCam() {
         </Typography>
         <div className="mx-auto mt-4 max-w-2xl">
           <Typography variant="body-lg" color="secondary">
-            Three capabilities working in concert to keep a reliable record of
-            every drive.
+            Three reasons every drive is safer with DriveCam.
           </Typography>
         </div>
       </div>

@@ -230,7 +230,7 @@ export function VideoPlaylist() {
           </Typography>
           <div className="mt-3">
             <Typography variant="body-md" color="secondary">
-              We made a video. Actually, we made twenty.
+              20 quick videos to walk you through setup and troubleshooting.
             </Typography>
           </div>
         </div>

@@ -73,14 +73,13 @@ export function SdCardUpsell() {
         <div className="flex flex-col gap-3 flex-1">
           {/* Headline */}
           <Typography as="h3" variant="heading-md" color="primary">
-            Get the right MicroSD card before you start.
+            Get the right microSD card first.
           </Typography>
 
           {/* Supporting copy */}
           <Typography variant="body-md" color="secondary">
-            DriveCam records continuously, so use an endurance-rated card built
-            for constant writing. <strong>Class 10, U3, V30.</strong> Supports
-            up to <strong>512GB</strong>.
+            DriveCam records non-stop, so it needs an endurance card.{" "}
+            <strong>Class 10, U3, V30.</strong> Up to <strong>512GB</strong>.
           </Typography>
 
           {/* Inline recommendations */}

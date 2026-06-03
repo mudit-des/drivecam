@@ -11,9 +11,9 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "DriveCam", href: "#drivecam" },
-  { label: "Installation Guide", href: "#installation" },
-  { label: "FAQs", href: "#faqs" },
+  { label: "DriveCam", href: "/#drivecam" },
+  { label: "Installation Guide", href: "/#installation" },
+  { label: "FAQs", href: "/faqs" },
 ];
 
 export function Navbar() {

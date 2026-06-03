@@ -8,7 +8,7 @@ import { FaqSupportCards } from "@/components/FaqSupportCards";
 export const metadata: Metadata = {
   title: "Troubleshooting & FAQs — ACKO DriveCam",
   description:
-    "Find setup guides, troubleshooting help, and answers to common DriveCam questions. Search across SD card, connectivity, recording, playback, and warranty topics.",
+    "Setup guides and answers to common DriveCam questions. Search SD card, connectivity, recording, playback, and warranty topics.",
 };
 
 export default function FaqsPage() {
@@ -37,8 +37,8 @@ export default function FaqsPage() {
           </Typography>
           <div className="mt-4 max-w-2xl">
             <Typography variant="body-lg" color="secondary">
-              Find setup guides, troubleshooting help, and answers to the most
-              common DriveCam questions — all in one place.
+              Setup guides, troubleshooting tips, and answers. All in one
+              place.
             </Typography>
           </div>
         </div>
