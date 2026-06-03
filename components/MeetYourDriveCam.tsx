@@ -90,16 +90,13 @@ export function MeetYourDriveCam() {
 
       mm.add(
         {
-          isStack:
-            "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
-          isFlat:
-            "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
+          isMotion: "(prefers-reduced-motion: no-preference)",
           isReduced: "(prefers-reduced-motion: reduce)",
         },
         (ctxQ) => {
           const conds = ctxQ.conditions as Record<string, boolean>;
 
-          if (conds.isFlat || conds.isReduced) {
+          if (conds.isReduced) {
             cards.forEach((card, i) => {
               ScrollTrigger.create({
                 trigger: card,
@@ -294,7 +291,7 @@ export function MeetYourDriveCam() {
       className="relative bg-surface-tint"
     >
       {/* Intro slab */}
-      <div className="container-page py-24 text-center md:py-28 lg:py-32">
+      <div className="container-page pt-16 pb-4 text-center md:pt-20 md:pb-6 lg:pt-24 lg:pb-8">
         <Typography
           as="h2"
           id={headingId}
@@ -311,16 +308,16 @@ export function MeetYourDriveCam() {
         </div>
       </div>
 
-      {/* Stack scroll range — 470vh on md+, normal flow on mobile.
-          400vh hosts the existing card 1/2 peel timeline at identical scroll
-          distances; the trailing 70vh is dedicated to card 3's hinge. */}
+      {/* Stack scroll range — 470vh on every viewport. 400vh hosts the card
+          1/2 peel timeline; the trailing 70vh is dedicated to card 3's hinge.
+          Reduced-motion users get auto height so the section flows normally. */}
       <div
         ref={stackRef}
-        className="relative md:h-[470vh]"
+        className="relative h-[470vh] motion-reduce:h-auto"
       >
         <div
           ref={pinRef}
-          className="space-y-12 pb-24 md:flex md:h-screen md:items-center md:justify-center md:space-y-0 md:overflow-hidden md:pb-0"
+          className="flex h-screen items-center justify-center overflow-hidden motion-reduce:block motion-reduce:h-auto motion-reduce:space-y-12 motion-reduce:overflow-visible motion-reduce:pb-24"
           style={{ perspective: "1200px", perspectiveOrigin: "50% 30%" }}
         >
           {CARDS.map((card, i) => (
@@ -329,7 +326,7 @@ export function MeetYourDriveCam() {
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="relative mx-4 flex w-[calc(100%-2rem)] max-w-[1180px] flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-white p-8 shadow-floating will-change-transform sm:mx-6 sm:w-[calc(100%-3rem)] sm:p-10 md:absolute md:inset-x-0 md:top-1/2 md:mx-auto md:h-[640px] md:-translate-y-1/2 lg:flex-row lg:items-stretch lg:gap-12 lg:p-14 lg:h-[680px]"
+              className="absolute inset-x-4 top-1/2 mx-auto flex h-[min(640px,calc(100vh-3rem))] w-auto max-w-[1180px] -translate-y-1/2 flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-gradient-to-br from-accent-soft from-0% to-white to-25% p-8 shadow-floating will-change-transform sm:inset-x-6 sm:p-10 md:inset-x-0 md:h-[640px] lg:h-[680px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-14 motion-reduce:relative motion-reduce:inset-x-auto motion-reduce:top-auto motion-reduce:mx-4 motion-reduce:h-auto motion-reduce:w-[calc(100%-2rem)] motion-reduce:translate-y-0 sm:motion-reduce:mx-6 sm:motion-reduce:w-[calc(100%-3rem)]"
               style={{ zIndex: CARDS.length - i }}
             >
               {/* Left 45% on desktop */}

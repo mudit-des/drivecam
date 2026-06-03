@@ -5,7 +5,7 @@ import { HeroVideo } from "./HeroVideo";
 
 const TRUST_POINTS = [
   { icon: Wifi,     label: "Plug & play setup"        },
-  { icon: Video,    label: "1080p HD recording"       },
+  { icon: Video,    label: "1440p QHD recording"      },
   { icon: Aperture, label: "156° wide angle viewing"  },
 ];
 
