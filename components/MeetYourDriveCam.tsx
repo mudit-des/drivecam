@@ -274,8 +274,6 @@ export function MeetYourDriveCam() {
             },
           });
 
-          // Prime the first video so the section opens with motion.
-          playVideo(videos[0]);
         },
       );
     }, sectionRef);
@@ -372,10 +370,11 @@ export function MeetYourDriveCam() {
                       videoRefs.current[i] = el;
                     }}
                     src={withBasePath(card.videoSrc)}
+                    autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     aria-hidden="true"
                     className="block h-full w-full object-cover"
                   />

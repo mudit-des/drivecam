@@ -41,7 +41,7 @@ export function Troubleshooting() {
     >
       <div className="container-page">
         <div className="mb-8">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Typography
               as="h2"
               id="faqs-heading"
@@ -53,7 +53,7 @@ export function Troubleshooting() {
             <Link
               href="/faqs"
               aria-label="View all troubleshooting articles and FAQs"
-              className="acko-btn acko-btn-secondary acko-btn-sm flex-shrink-0"
+              className="acko-btn acko-btn-secondary acko-btn-sm"
             >
               <span className="acko-btn-content">
                 <span className="acko-btn-label">View all</span>

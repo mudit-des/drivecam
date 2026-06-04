@@ -106,7 +106,10 @@ export function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  onClick={() => setIsMobileOpen(false)}
+                  onClick={() => {
+                    document.body.style.overflow = "";
+                    setIsMobileOpen(false);
+                  }}
                   className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
                 >
                   {item.label}

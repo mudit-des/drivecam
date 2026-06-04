@@ -215,7 +215,7 @@ export function VideoPlaylist() {
     <section
       id="installation"
       aria-labelledby={headingId}
-      className="py-20 sm:py-28"
+      className="py-20 sm:py-28 scroll-mt-32"
     >
       <div className="container-page">
         {/* Section header */}
