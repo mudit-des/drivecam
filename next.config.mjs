@@ -4,6 +4,7 @@ const BASE_PATH = "/drivecam";
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
+  trailingSlash: true,
   basePath: BASE_PATH,
   assetPrefix: BASE_PATH,
   images: {
