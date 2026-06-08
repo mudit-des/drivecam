@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function FaqsPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-surface-tint">
+    <main className="relative min-h-screen overflow-x-clip bg-surface-tint">
       <Navbar />
 
       {/* Hero */}

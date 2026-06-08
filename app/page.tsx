@@ -8,7 +8,7 @@ import { VideoPlaylist } from "@/components/VideoPlaylist";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-surface-tint">
+    <main className="relative min-h-screen overflow-x-clip bg-surface-tint">
       <Navbar />
       <Hero />
       <MeetYourDriveCam />
