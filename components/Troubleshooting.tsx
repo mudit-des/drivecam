@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Typography } from "@acko/typography";
 import { Separator } from "@acko/separator";
 import { Button } from "@acko/button";
@@ -10,10 +10,10 @@ import {
   FAQS,
   HOME_CATEGORIES,
   groupByHomeCategory,
+  type Faq,
   type HomeCategoryId,
 } from "@/lib/faqs";
 import { FaqAccordionItem } from "./FaqAccordionItem";
-import { FaqSupportCards } from "./FaqSupportCards";
 
 type FilterId = "all" | HomeCategoryId;
 
@@ -22,33 +22,48 @@ const FILTERS: { id: FilterId; label: string }[] = [
   ...HOME_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
 ];
 
+const RELATED_LIMIT = 2;
+
+function getRelatedFaqs(current: Faq): Faq[] {
+  return FAQS.filter(
+    (f) => f.homeCategoryId === current.homeCategoryId && f.id !== current.id,
+  ).slice(0, RELATED_LIMIT);
+}
+
 export function Troubleshooting() {
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
+  const [query, setQuery] = useState("");
 
   const visibleGroups = useMemo(() => {
-    const faqs =
-      activeFilter === "all"
-        ? FAQS
-        : FAQS.filter((faq) => faq.homeCategoryId === activeFilter);
-    return groupByHomeCategory(faqs);
-  }, [activeFilter]);
+    const q = query.trim().toLowerCase();
+    const filtered = FAQS.filter((faq) => {
+      const matchesCategory =
+        activeFilter === "all" || faq.homeCategoryId === activeFilter;
+      const matchesQuery =
+        q.length === 0 || faq.searchBody.toLowerCase().includes(q);
+      return matchesCategory && matchesQuery;
+    });
+    return groupByHomeCategory(filtered);
+  }, [activeFilter, query]);
 
   return (
     <section
       id="faqs"
       aria-labelledby="faqs-heading"
-      className="py-20 sm:py-28"
+      className="scroll-mt-32 bg-surface-tint py-20 sm:py-24 lg:py-28"
     >
       <div className="container-page">
+        {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Typography
               as="h2"
               id="faqs-heading"
-              variant="display-sm"
+              variant="display-md"
               color="primary"
+              className="text-balance"
             >
-              Troubleshooting &amp; FAQs
+              Something not working?
             </Typography>
             <Link
               href="/faqs"
@@ -63,14 +78,36 @@ export function Troubleshooting() {
               </span>
             </Link>
           </div>
-          <div className="mt-3 max-w-2xl">
+          <div className="mt-4 max-w-2xl">
             <Typography variant="body-lg" color="secondary">
-              Running into an issue? Find answers to the most common DriveCam
-              questions below.
+              Browse common questions below or watch the troubleshooting
+              videos for guided help.
             </Typography>
           </div>
         </div>
 
+        {/* Search */}
+        <div className="mb-6">
+          <label htmlFor="faqs-search" className="sr-only">
+            Search common questions
+          </label>
+          <div className="relative max-w-xl">
+            <Search
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted"
+              aria-hidden
+            />
+            <input
+              id="faqs-search"
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search common questions"
+              className="w-full rounded-full border border-line bg-white py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-ink-subtle focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+            />
+          </div>
+        </div>
+
+        {/* Category chips */}
         <div className="mb-8">
           <div
             role="group"
@@ -94,10 +131,11 @@ export function Troubleshooting() {
           </div>
         </div>
 
+        {/* FAQ cards */}
         <div className="flex flex-col gap-4" aria-live="polite">
           {visibleGroups.length === 0 ? (
             <Typography variant="body-md" color="secondary">
-              No FAQs found for this category.
+              No FAQs match. Try a different keyword or browse by category.
             </Typography>
           ) : (
             visibleGroups.map(({ category, items }) => (
@@ -113,23 +151,53 @@ export function Troubleshooting() {
 
                 <Separator decorative />
 
-                {items.map((faq, idx) => (
-                  <div key={faq.id}>
-                    <FaqAccordionItem
-                      id={`faq-${faq.id}`}
-                      question={faq.question}
-                      answer={faq.answer}
-                    />
-                    {idx < items.length - 1 && <Separator decorative />}
-                  </div>
-                ))}
+                {items.map((faq, idx) => {
+                  const related = getRelatedFaqs(faq);
+                  return (
+                    <div key={faq.id}>
+                      <FaqAccordionItem
+                        id={`faq-${faq.id}`}
+                        question={faq.question}
+                        answer={
+                          <>
+                            {faq.answer}
+                            {related.length > 0 && (
+                              <div className="mt-2 border-t border-line pt-3">
+                                <Typography
+                                  variant="caption"
+                                  color="secondary"
+                                  className="mb-1.5 block"
+                                >
+                                  Related
+                                </Typography>
+                                <ul className="flex flex-col gap-1.5">
+                                  {related.map((r) => (
+                                    <li key={r.id}>
+                                      <a
+                                        href={`#faq-${r.id}`}
+                                        className="inline-flex items-start gap-1.5 text-sm text-accent hover:underline underline-offset-2"
+                                      >
+                                        <ArrowRight
+                                          className="mt-0.5 h-3.5 w-3.5 flex-shrink-0"
+                                          aria-hidden
+                                        />
+                                        <span>{r.question}</span>
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </>
+                        }
+                      />
+                      {idx < items.length - 1 && <Separator decorative />}
+                    </div>
+                  );
+                })}
               </div>
             ))
           )}
-        </div>
-
-        <div className="mt-12">
-          <FaqSupportCards />
         </div>
       </div>
     </section>

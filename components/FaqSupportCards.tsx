@@ -5,13 +5,20 @@ const SUPPORT_EMAIL = "drivecamhelp@acko.com";
 const SUPPORT_PHONE_DISPLAY = "1800 266 2256";
 const SUPPORT_PHONE_HREF = "tel:+918002662256";
 
-export function FaqSupportCards() {
+interface FaqSupportCardsProps {
+  /** Show the built-in "Still need help?" heading. Defaults to true. */
+  showHeading?: boolean;
+}
+
+export function FaqSupportCards({ showHeading = true }: FaqSupportCardsProps = {}) {
   return (
     <div>
-      <Typography as="h3" variant="heading-md" color="primary">
-        Still need help?
-      </Typography>
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {showHeading && (
+        <Typography as="h3" variant="heading-md" color="primary">
+          Still need help?
+        </Typography>
+      )}
+      <div className={`${showHeading ? "mt-6 " : ""}grid grid-cols-1 gap-4 sm:grid-cols-3`}>
         <div className="acko-card border border-line bg-surface-tint p-6 sm:p-8 flex flex-col items-start gap-3">
           <MessageCircle
             className="h-6 w-6 text-ink-muted"

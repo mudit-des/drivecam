@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useEffect, useId, useRef } from "react";
 import { Typography } from "@acko/typography";
 import { withBasePath } from "@/lib/assets";
 
@@ -18,33 +18,56 @@ const CARDS: readonly FeatureCard[] = [
     id: "night-vision",
     number: "01",
     category: "Night Vision",
-    headline: "Crystal-clear, even at night.",
+    headline: "See what happened. Even after sunset.",
     description:
-      "Low-light recording that doesn't quit after dark.",
+      "Night drives shouldn't mean missing details. DriveCam captures clear footage in low-light conditions so important moments stay visible.",
     videoSrc: "/videos/night-vision.mp4",
   },
   {
     id: "in-cabin",
     number: "02",
     category: "In-Cabin Recording",
-    headline: "Eyes inside the cabin, too.",
+    headline: "Record inside the cabin when needed.",
     description:
-      "Flip the camera 360° to record the cabin alongside the road ahead.",
+      "The camera rotates to capture both the road ahead and the cabin. Useful for ride-share drivers, family trips, and added peace of mind.",
     videoSrc: "/videos/flip-camera.mp4",
   },
   {
-    id: "quad-hd",
+    id: "wide-angle",
     number: "03",
-    category: "Quad HD Recording",
-    headline: "Quad HD. 150°+ wide.",
+    category: "Wide-Angle View",
+    headline: "More road. More context.",
     description:
-      "See exactly what happened. Every angle. In QHD.",
+      "A wide-angle view helps capture more of what's happening around your vehicle. Because sometimes the detail that matters isn't directly in front of you.",
     videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
 
 export function MeetYourDriveCam() {
   const headingId = useId();
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    videoRefs.current.forEach((v) => {
+      if (!v) return;
+      const tryPlay = () => {
+        void v.play().catch(() => {
+          /* iOS Low Power Mode / autoplay policy — IO retry will pick it up */
+        });
+      };
+      tryPlay();
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) tryPlay();
+        },
+        { threshold: 0.1 },
+      );
+      io.observe(v);
+      observers.push(io);
+    });
+    return () => observers.forEach((io) => io.disconnect());
+  }, []);
 
   return (
     <section
@@ -60,11 +83,11 @@ export function MeetYourDriveCam() {
           variant="display-md"
           className="!text-ink text-balance"
         >
-          Meet Your DriveCam
+          Why drivers love ACKO DriveCam
         </Typography>
         <div className="mx-auto mt-4 max-w-2xl">
           <Typography variant="body-lg" color="secondary">
-            Three reasons every drive is safer with DriveCam.
+            Because when the unexpected happens, details matter.
           </Typography>
         </div>
       </div>
@@ -126,6 +149,9 @@ export function MeetYourDriveCam() {
             <div className="mx-auto w-full max-w-[480px] lg:mx-0 lg:max-w-none lg:w-[55%]">
               <div className="aspect-video w-full overflow-hidden rounded-3xl bg-ink/5 lg:aspect-auto lg:h-full">
                 <video
+                  ref={(el) => {
+                    videoRefs.current[i] = el;
+                  }}
                   src={withBasePath(card.videoSrc)}
                   autoPlay
                   muted
