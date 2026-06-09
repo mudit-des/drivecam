@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { PlayCircle, CheckCircle2, BookOpen } from "lucide-react";
+import { PlayCircle, Video, Lock, BookOpen } from "lucide-react";
 import { Typography } from "@acko/typography";
 import { HeroVideo } from "./HeroVideo";
 
 const TRUST_POINTS = [
-  "Records every drive automatically",
-  "Clear footage, day and night",
-  "Setup in minutes",
+  { icon: Video, label: "Every drive, automatically recorded"  },
+  { icon: Lock,  label: "Your footage stays with you. Always." },
 ];
 
 export function Hero() {
@@ -41,7 +40,7 @@ export function Hero() {
                 color="primary"
                 className="block"
               >
-                Drive with proof.
+                Protection starts
               </Typography>
               <Typography
                 as="span"
@@ -49,52 +48,48 @@ export function Hero() {
                 color="secondary"
                 className="block"
               >
-                Not guesswork.
+                the moment you hit the road.
               </Typography>
             </h1>
 
             <div className="mt-5 max-w-xl mx-auto space-y-3 lg:mx-0">
               <Typography as="p" variant="body-lg" color="secondary">
-                Every drive is recorded. Every important moment is saved.
-              </Typography>
-              <Typography as="p" variant="body-lg" color="secondary">
-                So if something unexpected happens on the road, you&apos;ve got
-                the footage to back you up.
-              </Typography>
-              <Typography as="p" variant="body-lg" color="secondary">
-                Setup takes just a few minutes.
+                Introducing the{" "}
+                <strong className="font-semibold">ACKO DriveCam</strong>.
+                Crystal-clear footage of every drive, so when something
+                happens, you&rsquo;ve got proof. Not arguments.
               </Typography>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:flex-nowrap lg:justify-start">
               <Link
-                href="#why"
-                className="acko-btn acko-btn-primary acko-btn-lg min-w-[15rem]"
+                href="#specs-table"
+                className="acko-btn acko-btn-primary acko-btn-lg min-w-[15rem] lg:min-w-0"
               >
                 <span className="acko-btn-content">
                   <span className="acko-btn-icon">
                     <PlayCircle className="h-5 w-5" />
                   </span>
-                  <span className="acko-btn-label">Get Started</span>
+                  <span className="acko-btn-label">Explore Features</span>
                 </span>
               </Link>
               <Link
                 href="#installation"
-                className="acko-btn acko-btn-secondary acko-btn-lg min-w-[15rem]"
+                className="acko-btn acko-btn-secondary acko-btn-lg min-w-[15rem] lg:min-w-0"
               >
                 <span className="acko-btn-content">
                   <span className="acko-btn-icon">
                     <BookOpen className="h-5 w-5" />
                   </span>
-                  <span className="acko-btn-label">Installation Guide</span>
+                  <span className="acko-btn-label">Set it up</span>
                 </span>
               </Link>
             </div>
 
             <ul className="mt-10 flex flex-col items-center gap-3 lg:items-start">
-              {TRUST_POINTS.map((label) => (
+              {TRUST_POINTS.map(({ icon: Icon, label }) => (
                 <li key={label} className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-accent" strokeWidth={2} />
+                  <Icon className="h-4 w-4 flex-shrink-0 text-ink-muted" strokeWidth={2} />
                   <Typography variant="label-md" color="secondary">
                     {label}
                   </Typography>
@@ -114,3 +109,4 @@ export function Hero() {
     </section>
   );
 }
+
