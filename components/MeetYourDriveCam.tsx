@@ -18,27 +18,27 @@ const CARDS: readonly FeatureCard[] = [
     id: "night-vision",
     number: "01",
     category: "Night Vision",
-    headline: "See what happened. Even after sunset.",
+    headline: "Crystal-clear, even at night.",
     description:
-      "Night drives shouldn't mean missing details. DriveCam captures clear footage in low-light conditions so important moments stay visible.",
+      "Low-light recording that doesn't quit after dark.",
     videoSrc: "/videos/night-vision.mp4",
   },
   {
     id: "in-cabin",
     number: "02",
     category: "In-Cabin Recording",
-    headline: "Record inside the cabin when needed.",
+    headline: "Eyes inside the cabin, too.",
     description:
-      "The camera rotates to capture both the road ahead and the cabin. Useful for ride-share drivers, family trips, and added peace of mind.",
+      "Flip the camera 360° to record the cabin alongside the road ahead.",
     videoSrc: "/videos/flip-camera.mp4",
   },
   {
-    id: "wide-angle",
+    id: "quad-hd",
     number: "03",
-    category: "Wide-Angle View",
-    headline: "More road. More context.",
+    category: "Quad HD Recording",
+    headline: "Quad HD. 150°+ wide.",
     description:
-      "A wide-angle view helps capture more of what's happening around your vehicle. Because sometimes the detail that matters isn't directly in front of you.",
+      "See exactly what happened. Every angle. In QHD.",
     videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
@@ -83,11 +83,11 @@ export function MeetYourDriveCam() {
           variant="display-md"
           className="!text-ink text-balance"
         >
-          Why drivers love ACKO DriveCam
+          Meet Your DriveCam
         </Typography>
         <div className="mx-auto mt-4 max-w-2xl">
           <Typography variant="body-lg" color="secondary">
-            Because when the unexpected happens, details matter.
+            Three reasons every drive is safer with DriveCam.
           </Typography>
         </div>
       </div>

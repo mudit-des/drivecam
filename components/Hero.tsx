@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { PlayCircle, Video, Lock, BookOpen } from "lucide-react";
+import { PlayCircle, Video, Smartphone, EyeOff, BookOpen } from "lucide-react";
 import { Typography } from "@acko/typography";
 import { HeroVideo } from "./HeroVideo";
 
 const TRUST_POINTS = [
-  { icon: Video, label: "Every drive, automatically recorded"  },
-  { icon: Lock,  label: "Your footage stays with you. Always." },
+  { icon: Video,      label: "Records every drive, automatically" },
+  { icon: Smartphone, label: "Footage stays on your device. Not our servers." },
+  { icon: EyeOff,     label: "Your footage is never used in claim processing." },
 ];
 
 export function Hero() {
@@ -40,7 +41,7 @@ export function Hero() {
                 color="primary"
                 className="block"
               >
-                Protection starts
+                Insurance helps after an accident.
               </Typography>
               <Typography
                 as="span"
@@ -48,16 +49,19 @@ export function Hero() {
                 color="secondary"
                 className="block"
               >
-                the moment you hit the road.
+                We built DriveCam for everything before it.
               </Typography>
             </h1>
 
             <div className="mt-5 max-w-xl mx-auto space-y-3 lg:mx-0">
               <Typography as="p" variant="body-lg" color="secondary">
-                Introducing the{" "}
-                <strong className="font-semibold">ACKO DriveCam</strong>.
-                Crystal-clear footage of every drive, so when something
-                happens, you&rsquo;ve got proof. Not arguments.
+                Wrong challan. Road rage. An accident where the other driver
+                has a different story. DriveCam records from the moment your
+                car starts &mdash; so when it happens, you have proof, not
+                arguments.
+              </Typography>
+              <Typography as="p" variant="body-lg" color="secondary">
+                Your footage is yours. ACKO cannot access it. Ever.
               </Typography>
             </div>
 
