@@ -1,4 +1,3 @@
-import { BuiltForTheRoad } from "@/components/BuiltForTheRoad";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { MeetYourDriveCam } from "@/components/MeetYourDriveCam";
@@ -13,7 +12,6 @@ export default function Home() {
       <Navbar />
       <Hero />
       <MeetYourDriveCam />
-      <BuiltForTheRoad />
       <TechSpecsTable />
       <VideoPlaylist />
       <Troubleshooting />
