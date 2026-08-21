@@ -18,7 +18,7 @@ export function BuiltForTheRoad() {
             variant="display-sm"
             color="primary"
           >
-            Built for the road
+            Built for every journey
           </Typography>
         </div>
 
