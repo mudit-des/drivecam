@@ -8,22 +8,13 @@ export interface RoadFeature {
 
 export const ROAD_FEATURES: readonly RoadFeature[] = [
   {
-    id: "wide-angle-qhd",
-    imageSrc: "/illustrations/built-for-the-road/wide-angle.png",
+    id: "footage-on-phone",
+    imageSrc: "/illustrations/built-for-the-road/footage-on-phone.png",
     imageAlt:
-      "Top-down view of a car on a three-lane road with a wide 156° camera arc covering the vehicles in adjacent lanes",
-    headline: "Wide-angle Quad HD",
+      "Smartphone showing dashcam video playback next to an SD card, with Wi-Fi arcs indicating footage transferring to the phone",
+    headline: "All your footage on your phone",
     description:
-      "1440p QHD. 156° field of view. Wide enough to capture the vehicles around you, not just the one directly ahead.",
-  },
-  {
-    id: "night-clear",
-    imageSrc: "/illustrations/built-for-the-road/night-clear.png",
-    imageAlt:
-      "Car driving on a winding road at night with a crescent moon overhead and a soft cone of light from the dashcam",
-    headline: "Clear at night, on your phone",
-    description:
-      "Records clearly at night. Footage stays on your SD card and transfers to your phone over Wi-Fi via the ACKO app.",
+      "All footage stays on your SD card and transfers to your phone over Wi-Fi via the ACKO app.",
   },
   {
     id: "never-lose-moment",

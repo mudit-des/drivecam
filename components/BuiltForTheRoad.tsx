@@ -22,7 +22,7 @@ export function BuiltForTheRoad() {
           </Typography>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ROAD_FEATURES.map(({ id, imageSrc, imageAlt, headline, description }) => (
             <article
               key={id}

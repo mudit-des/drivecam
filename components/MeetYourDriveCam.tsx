@@ -36,9 +36,9 @@ const CARDS: readonly FeatureCard[] = [
     id: "quad-hd",
     number: "03",
     category: "Quad HD Recording",
-    headline: "Quad HD. 150°+ wide.",
+    headline: "Wide-angle Quad HD",
     description:
-      "See exactly what happened. Every angle. In QHD.",
+      "1440p QHD. 156° field of view. Wide enough to capture the vehicles around you, not just the one directly ahead.",
     videoSrc: "/videos/quad-hd.mp4",
   },
 ] as const;
