@@ -32,15 +32,15 @@
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-[1080px] px-6 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1280px] px-4 md:px-8 lg:px-10;
   }
 
   .chat-modal-layer {
-    @apply fixed inset-0 z-[1300] flex items-end bg-[color:var(--surfaceOverlay)] sm:items-end sm:justify-end sm:p-6;
+    @apply fixed inset-0 z-[1300] flex items-end bg-[color:var(--surfaceOverlay)] min-[600px]:justify-end min-[600px]:p-6;
   }
 
   .chat-modal-panel {
-    @apply flex h-[min(720px,calc(100dvh-16px))] w-full flex-col overflow-hidden rounded-t-[32px] bg-[#eaedf8] sm:h-[min(720px,calc(100dvh-48px))] sm:max-w-[390px] sm:rounded-[32px];
+    @apply flex h-[calc(100dvh-8px)] w-full flex-col overflow-hidden rounded-t-[32px] bg-[#eaedf8] min-[600px]:h-[min(720px,calc(100dvh-48px))] min-[600px]:max-w-[390px] min-[600px]:rounded-[32px];
     box-shadow:
       0 8px 16px rgba(0, 0, 0, 0.04),
       0 24px 32px rgba(0, 0, 0, 0.04),

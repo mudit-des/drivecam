@@ -14,7 +14,7 @@ export function Hero() {
     <section
       id="drivecam"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-white pt-32 sm:pt-36 lg:pt-44"
+      className="relative isolate overflow-hidden bg-white pt-24 sm:pt-28 lg:pt-32"
     >
       {/* Ambient background */}
       <div
@@ -23,18 +23,18 @@ export function Hero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[1100px] -translate-x-1/2 rounded-full bg-white/60 blur-3xl"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[1300px] -translate-x-1/2 rounded-full bg-white/60 blur-3xl"
       />
 
       <div className="container-page">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="flex flex-col items-center gap-6 text-center">
 
-          {/* Left: copy */}
-          <div className="order-2 text-center lg:order-none lg:col-span-6 lg:text-left">
-            <h1
-              id="hero-heading"
-              className="mt-6 text-balance"
-            >
+          <div className="w-full">
+            <HeroVideo />
+          </div>
+
+          <div className="mx-auto w-full">
+            <h1 id="hero-heading">
               <Typography
                 as="span"
                 variant="display-md"
@@ -53,22 +53,20 @@ export function Hero() {
               </Typography>
             </h1>
 
-            <div className="mt-5 max-w-xl mx-auto space-y-3 lg:mx-0">
+            <div className="mt-5">
               <Typography as="p" variant="body-lg" color="secondary">
                 Wrong challan. Road rage. An accident where the other driver
                 has a different story. DriveCam records from the moment your
                 car starts &mdash; so when it happens, you have proof, not
-                arguments.
-              </Typography>
-              <Typography as="p" variant="body-lg" color="secondary">
-                Your footage is yours. ACKO cannot access it. Ever.
+                arguments. Your footage is yours. ACKO cannot access it.
+                Ever.
               </Typography>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:flex-nowrap lg:justify-start">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="#specs-table"
-                className="acko-btn acko-btn-primary acko-btn-lg min-w-[15rem] lg:min-w-0"
+                className="acko-btn acko-btn-primary acko-btn-lg min-w-[15rem]"
               >
                 <span className="acko-btn-content">
                   <span className="acko-btn-icon">
@@ -79,7 +77,7 @@ export function Hero() {
               </Link>
               <Link
                 href="#installation"
-                className="acko-btn acko-btn-secondary acko-btn-lg min-w-[15rem] lg:min-w-0"
+                className="acko-btn acko-btn-secondary acko-btn-lg min-w-[15rem]"
               >
                 <span className="acko-btn-content">
                   <span className="acko-btn-icon">
@@ -89,23 +87,25 @@ export function Hero() {
                 </span>
               </Link>
             </div>
+          </div>
 
-            <ul className="mt-10 flex flex-col items-center gap-3 lg:items-start">
+            <ul className="mt-10 flex w-full flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-4">
               {TRUST_POINTS.map(({ icon: Icon, label }) => (
-                <li key={label} className="inline-flex items-center gap-2">
-                  <Icon className="h-4 w-4 flex-shrink-0 text-ink-muted" strokeWidth={2} />
-                  <Typography variant="label-md" color="secondary">
+                <li
+                  key={label}
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-ink-muted" strokeWidth={2} />
+                  <Typography
+                    variant="label-md"
+                    color="secondary"
+                    className="whitespace-nowrap"
+                  >
                     {label}
                   </Typography>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Right: hero video */}
-          <div className="relative order-1 lg:order-none lg:col-span-6">
-            <HeroVideo />
-          </div>
         </div>
       </div>
 

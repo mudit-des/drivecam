@@ -2,6 +2,7 @@
 
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { FormEvent, useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Typography } from "@acko/typography";
 import { withBasePath } from "@/lib/assets";
 
@@ -103,7 +104,9 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    inputRef.current?.focus();
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    if (!isTouchDevice) inputRef.current?.focus();
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -140,7 +143,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
 
   if (!isOpen) return null;
 
-  return (
+  const dialog = (
     <div
       className="chat-modal-layer"
       role="presentation"
@@ -352,4 +355,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
       </section>
     </div>
   );
+
+  return createPortal(dialog, document.body);
 }

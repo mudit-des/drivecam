@@ -420,6 +420,40 @@
 .acko-text-caption     { font-size: var(--fontCaptionSize);    line-height: var(--fontCaptionLine);    letter-spacing: var(--fontCaptionSpacing);    font-weight: var(--fontCaptionWeight,    400); }
 .acko-text-overline    { font-size: var(--fontOverlineSize);   line-height: var(--fontOverlineLine);   letter-spacing: var(--fontOverlineSpacing);   font-weight: var(--fontOverlineWeight,   600); text-transform: uppercase; }
 
+/* Mobile type downshift below 600px — size / line-height / letter-spacing only */
+@media (max-width: 599px) {
+  .acko-text-display-xl {
+    font-size: var(--fontDisplayMdSize);
+    line-height: var(--fontDisplayMdLine);
+    letter-spacing: var(--fontDisplayMdSpacing);
+  }
+  .acko-text-display-lg {
+    font-size: var(--fontDisplaySmSize);
+    line-height: var(--fontDisplaySmLine);
+    letter-spacing: var(--fontDisplaySmSpacing);
+  }
+  .acko-text-display-md {
+    font-size: var(--fontHeadingXlSize);
+    line-height: var(--fontHeadingXlLine);
+    letter-spacing: var(--fontHeadingXlSpacing);
+  }
+  .acko-text-display-sm {
+    font-size: var(--fontHeadingLgSize);
+    line-height: var(--fontHeadingLgLine);
+    letter-spacing: var(--fontHeadingLgSpacing);
+  }
+  .acko-text-heading-xl {
+    font-size: var(--fontHeadingLgSize);
+    line-height: var(--fontHeadingLgLine);
+    letter-spacing: var(--fontHeadingLgSpacing);
+  }
+  .acko-text-heading-lg {
+    font-size: var(--fontHeadingMdSize);
+    line-height: var(--fontHeadingMdLine);
+    letter-spacing: var(--fontHeadingMdSpacing);
+  }
+}
+
 /* Color */
 .acko-text-color-primary   { color: var(--colorTextPrimary); }
 .acko-text-color-secondary { color: var(--colorTextSecondary); }

@@ -55,7 +55,7 @@ export function Navbar() {
         <nav
           aria-label="Primary"
           className={[
-            "relative mx-auto flex w-full max-w-[1080px] items-center justify-between rounded-full border border-line bg-white/80 pl-5 pr-2 py-2 glass-surface transition-all duration-300",
+            "relative mx-auto flex w-full items-center justify-between rounded-full border border-line bg-white/80 pl-5 pr-2 py-2 glass-surface transition-all duration-300",
             isScrolled ? "shadow-floating border-line-strong" : "shadow-card",
           ].join(" ")}
         >
@@ -109,7 +109,7 @@ export function Navbar() {
           id="mobile-nav"
           className={[
             "md:hidden",
-            "mx-auto mt-3 w-full max-w-[1080px] origin-top transform-gpu overflow-hidden rounded-3xl border border-line bg-white shadow-floating transition-all duration-300",
+            "mx-auto mt-3 w-full origin-top transform-gpu overflow-hidden rounded-3xl border border-line bg-white shadow-floating transition-all duration-300",
             isMobileOpen
               ? "pointer-events-auto max-h-[420px] opacity-100"
               : "pointer-events-none max-h-0 opacity-0",

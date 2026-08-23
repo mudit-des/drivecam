@@ -97,13 +97,13 @@ export function MeetYourDriveCam() {
           z-index, so later cards rise into view and progressively cover
           earlier ones. Reduced-motion users get a plain vertical stack. */}
       <div
-        className="relative px-4 sm:px-6 md:px-0"
+        className="container-page relative"
         style={{ height: `${CARDS.length * 100}vh` }}
       >
         {CARDS.map((card, i) => (
           <article
             key={card.id}
-            className="sticky mx-auto flex h-[min(640px,calc(100vh-8rem))] max-w-[1180px] flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-gradient-to-br from-accent-soft from-0% to-white to-25% p-8 shadow-floating sm:p-10 md:h-[640px] lg:h-[680px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-14"
+            className="sticky mx-auto flex h-[min(640px,calc(100vh-8rem))] w-full max-w-[1280px] flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-gradient-to-br from-accent-soft from-0% to-white to-25% p-8 shadow-floating sm:p-10 md:h-[640px] lg:h-[680px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-14"
             style={{
               zIndex: i + 1,
               top: `${6 + i * 0.5}rem`,

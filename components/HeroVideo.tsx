@@ -14,6 +14,14 @@ export function HeroVideo() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+
+    // Mobile browsers only permit autoplay for inline, muted videos. Set both
+    // the attribute and media properties before attempting playback.
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+
     const tryPlay = () => {
       void v.play().catch(() => {
         /* iOS Low Power Mode / autoplay rejection — fallback handles it */
