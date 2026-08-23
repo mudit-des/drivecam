@@ -236,8 +236,8 @@ export function VideoPlaylist() {
         </div>
 
         {/* Main grid: player + playlist */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-8 lg:items-start">
-          {/* Featured player card */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-stretch lg:gap-8">
+          {/* Featured player card — this column sets the desktop row height */}
           <div className="acko-card overflow-hidden border border-line bg-white">
             <div className="relative aspect-video w-full bg-black">
               <iframe
@@ -274,11 +274,12 @@ export function VideoPlaylist() {
             </div>
           </div>
 
-          {/* Playlist card */}
+          {/* Playlist card — fill the player column height; do not grow the row */}
+          <div className="relative min-h-0">
           <aside
             id={playlistId}
             aria-label={`${PLAYLIST_TITLE} playlist by ${CHANNEL_NAME}`}
-            className="acko-card flex flex-col overflow-hidden border border-line bg-white"
+            className="acko-card flex flex-col overflow-hidden border border-line bg-white lg:absolute lg:inset-0"
           >
             {/* Playlist header */}
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
@@ -318,7 +319,7 @@ export function VideoPlaylist() {
             {/* Scrollable list */}
             <div
               ref={scrollContainerRef}
-              className="playlist-scroll flex-1 overflow-y-auto max-h-[26rem] lg:max-h-[22rem]"
+              className="playlist-scroll min-h-0 flex-1 overflow-y-auto max-h-[26rem] lg:max-h-none"
             >
               {PLAYLIST_GROUPS.map((group, groupIdx) => {
                 let runningIndex = 0;
@@ -360,6 +361,7 @@ export function VideoPlaylist() {
               })}
             </div>
           </aside>
+          </div>
         </div>
 
         {/* SD card reminder — shown after the videos */}
