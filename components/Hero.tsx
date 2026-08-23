@@ -33,7 +33,7 @@ export function Hero() {
             <HeroVideo />
           </div>
 
-          <div className="mx-auto w-full">
+          <div className="mx-auto w-full max-w-3xl">
             <h1 id="hero-heading">
               <Typography
                 as="span"
