@@ -33,7 +33,7 @@ export function Hero() {
             <HeroVideo />
           </div>
 
-          <div className="mx-auto w-full max-w-3xl">
+          <div className="mx-auto w-full">
             <h1 id="hero-heading">
               <Typography
                 as="span"
@@ -47,13 +47,13 @@ export function Hero() {
                 as="span"
                 variant="display-md"
                 color="secondary"
-                className="block"
+                className="block lg:whitespace-nowrap"
               >
                 We built DriveCam for everything before it.
               </Typography>
             </h1>
 
-            <div className="mt-5">
+            <div className="mx-auto mt-5 max-w-3xl">
               <Typography as="p" variant="body-lg" color="secondary">
                 Wrong challan. Road rage. An accident where the other driver
                 has a different story. DriveCam records from the moment your
