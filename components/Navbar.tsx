@@ -1,24 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { ChatModal } from "./ChatModal";
 import { Logo } from "./Logo";
 
-interface NavItem {
-  label: string;
-  href: string;
-}
+type NavItem =
+  | { label: string; href: string }
+  | { label: string; action: "chat" };
 
 const NAV_ITEMS: NavItem[] = [
   { label: "DriveCam", href: "/#drivecam" },
   { label: "Installation Guide", href: "/#installation" },
-  { label: "FAQs", href: "/faqs" },
+  { label: "Chat with us", action: "chat" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const closeChat = useCallback(() => setIsChatOpen(false), []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 8);
@@ -36,11 +38,11 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    document.body.style.overflow = isMobileOpen || isChatOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isMobileOpen]);
+  }, [isChatOpen, isMobileOpen]);
 
   return (
     <header
@@ -62,13 +64,25 @@ export function Navbar() {
           {/* Desktop nav */}
           <ul className="hidden items-center gap-1 md:flex">
             {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:bg-surface-alt hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-                >
-                  {item.label}
-                </Link>
+              <li key={item.label}>
+                {"href" in item ? (
+                  <Link
+                    href={item.href}
+                    className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:bg-surface-alt hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-expanded={isChatOpen}
+                    onClick={() => setIsChatOpen(true)}
+                    className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:bg-surface-alt hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+                  >
+                    {item.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -103,22 +117,35 @@ export function Navbar() {
         >
           <ul className="flex flex-col p-2">
             {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => {
-                    document.body.style.overflow = "";
-                    setIsMobileOpen(false);
-                  }}
-                  className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
-                >
-                  {item.label}
-                </Link>
+              <li key={item.label}>
+                {"href" in item ? (
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-expanded={isChatOpen}
+                    onClick={() => {
+                      setIsMobileOpen(false);
+                      setIsChatOpen(true);
+                    }}
+                    className="block w-full rounded-2xl px-4 py-3 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
+                  >
+                    {item.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
         </div>
       </div>
+      <ChatModal isOpen={isChatOpen} onClose={closeChat} />
     </header>
   );
 }

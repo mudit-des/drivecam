@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { MeetYourDriveCam } from "@/components/MeetYourDriveCam";
 import { Navbar } from "@/components/Navbar";
 import { TechSpecsTable } from "@/components/TechSpecsTable";
-import { Troubleshooting } from "@/components/Troubleshooting";
 import { VideoPlaylist } from "@/components/VideoPlaylist";
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
       <MeetYourDriveCam />
       <TechSpecsTable />
       <VideoPlaylist />
-      <Troubleshooting />
       <Footer />
     </main>
   );
