@@ -89,7 +89,7 @@ export function Hero() {
             </div>
           </div>
 
-            <ul className="mt-10 flex w-full flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-4">
+            <ul className="mt-4 flex w-full flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-4">
               {TRUST_POINTS.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
