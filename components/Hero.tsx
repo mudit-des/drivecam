@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { PlayCircle, Video, Smartphone, EyeOff, BookOpen } from "lucide-react";
 import { Typography } from "@acko/typography";
 import { HeroVideo } from "./HeroVideo";
+import { InPageAnchor } from "./InPageAnchor";
 
 const TRUST_POINTS = [
   { icon: Video,      label: "Records every drive, automatically" },
@@ -64,7 +64,7 @@ export function Hero() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link
+              <InPageAnchor
                 href="#specs-table"
                 className="acko-btn acko-btn-primary acko-btn-lg min-w-[15rem]"
               >
@@ -74,8 +74,8 @@ export function Hero() {
                   </span>
                   <span className="acko-btn-label">Explore Features</span>
                 </span>
-              </Link>
-              <Link
+              </InPageAnchor>
+              <InPageAnchor
                 href="#installation"
                 className="acko-btn acko-btn-secondary acko-btn-lg min-w-[15rem]"
               >
@@ -85,7 +85,7 @@ export function Hero() {
                   </span>
                   <span className="acko-btn-label">Set it up</span>
                 </span>
-              </Link>
+              </InPageAnchor>
             </div>
           </div>
 

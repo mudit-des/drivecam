@@ -40,7 +40,7 @@
   }
 
   .chat-modal-panel {
-    @apply flex h-[calc(100dvh-8px)] w-full flex-col overflow-hidden rounded-t-[32px] bg-[#eaedf8] min-[600px]:h-[min(720px,calc(100dvh-48px))] min-[600px]:max-w-[390px] min-[600px]:rounded-[32px];
+    @apply flex h-[calc(100dvh-8px)] w-full flex-col overflow-hidden rounded-t-[32px] bg-[#eaedf8] min-[600px]:h-[min(560px,calc(100dvh-48px))] min-[600px]:max-w-[390px] min-[600px]:rounded-[32px];
     box-shadow:
       0 8px 16px rgba(0, 0, 0, 0.04),
       0 24px 32px rgba(0, 0, 0, 0.04),
@@ -102,12 +102,6 @@
     inset: -12px;
   }
 
-  .chat-call-button {
-    @apply inline-flex size-14 shrink-0 items-center justify-center rounded-[56px] border border-white transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_var(--borderFocus)];
-    background-image: linear-gradient(to top, #f0f0f6 0%, white 85%);
-    box-shadow: 0 0 4px rgba(28, 11, 62, 0.02);
-  }
-
   .chat-feedback-button {
     @apply inline-flex size-11 items-center justify-center rounded-full text-ink-muted transition-colors duration-150 hover:text-ink focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_var(--borderFocus)] aria-pressed:text-accent;
   }
@@ -115,7 +109,6 @@
   @media (prefers-reduced-motion: reduce) {
     .chat-modal-icon-button,
     .chat-send-button,
-    .chat-call-button,
     .chat-coverage-option,
     .chat-feedback-button {
       transition: none;

@@ -14,7 +14,7 @@ const SPECS: readonly SpecRow[] = [
   { label: "Power",            value: "Supercapacitor" },
   { label: "Storage",          value: "SD card required — up to 512GB" },
   { label: "Connectivity",     value: "Wi-Fi" },
-  { label: "Heat tolerance",   value: "~70°C+ cabin" },
+  { label: "Heat tolerance",   value: "Up to 70°C in cabin" },
 ] as const;
 
 export function TechSpecsTable() {
@@ -22,7 +22,7 @@ export function TechSpecsTable() {
     <section
       id="specs-table"
       aria-labelledby="specs-table-heading"
-      className="py-20 sm:py-28 bg-surface-alt"
+      className="scroll-mt-32 bg-surface-alt py-20 sm:py-28"
     >
       <div className="container-page">
         {/* Section header */}

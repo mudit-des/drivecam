@@ -10,12 +10,20 @@ const RECOMMENDED_CARDS = [
     href: "https://www.amazon.in/s?k=Samsung+PRO+Endurance+microSD",
   },
   {
-    name: "SanDisk High Endurance microSD",
-    href: "https://www.amazon.in/s?k=SanDisk+High+Endurance+microSD",
+    name: "SanDisk High Endurance 64GB",
+    href: "https://www.amazon.in/dp/B07P3D6Y5B",
   },
   {
-    name: "Lexar Professional 1066x microSD",
-    href: "https://www.amazon.in/s?k=Lexar+Professional+1066x+microSD",
+    name: "Lexar HIGH-ENDURANCE",
+    href: "https://www.amazon.in/dp/B0CW2KFBFZ",
+  },
+  {
+    name: "SanDisk Extreme",
+    href: "https://www.amazon.in/dp/B0B2DDJGF8",
+  },
+  {
+    name: "SanDisk Extreme Go",
+    href: "https://www.amazon.in/dp/B0GVJ1WKZT",
   },
 ] as const;
 
@@ -92,35 +100,20 @@ export function SdCardUpsell() {
               color="secondary"
               className="mt-1.5 block"
             >
-              <Link
-                href={RECOMMENDED_CARDS[0].href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={CARD_LINK_CLASS}
-              >
-                {RECOMMENDED_CARDS[0].name}
-                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-              </Link>
-              ,{" "}
-              <Link
-                href={RECOMMENDED_CARDS[1].href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={CARD_LINK_CLASS}
-              >
-                {RECOMMENDED_CARDS[1].name}
-                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-              </Link>
-              , or{" "}
-              <Link
-                href={RECOMMENDED_CARDS[2].href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={CARD_LINK_CLASS}
-              >
-                {RECOMMENDED_CARDS[2].name}
-                <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-              </Link>
+              {RECOMMENDED_CARDS.map((card, index) => (
+                <span key={card.href}>
+                  {index > 0 ? ", " : null}
+                  <Link
+                    href={card.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={CARD_LINK_CLASS}
+                  >
+                    {card.name}
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                  </Link>
+                </span>
+              ))}
               .
             </Typography>
           </div>

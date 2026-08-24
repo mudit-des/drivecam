@@ -173,19 +173,10 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
             </button>
 
             <div className="flex min-w-0 items-center gap-3">
-              <div className="relative h-[46px] w-[45px] shrink-0" aria-hidden="true">
-                <span className="absolute left-0 top-0 size-[42px] overflow-clip rounded-full">
-                  <ChatAsset src="/chat/avatar-bg.svg" className="absolute inset-0 block size-full max-w-none" />
-                  <span className="absolute left-[calc(50%-1.93px)] top-[calc(50%-0.64px)] h-[27px] w-[33px] -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-                    <ChatAsset
-                      src="/chat/acko-expert.png"
-                      className="absolute left-[-3%] top-0 h-full w-[316%] max-w-none"
-                    />
-                  </span>
-                </span>
+              <div className="relative size-[46px] shrink-0" aria-hidden="true">
                 <ChatAsset
-                  src="/chat/online-status.svg"
-                  className="absolute left-[30px] top-[31px] block size-[15px] max-w-none"
+                  src="/chat/bot-avatar.png"
+                  className="absolute inset-0 block size-full max-w-none object-contain"
                 />
               </div>
 
@@ -305,7 +296,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
             <label htmlFor="chat-message" className="sr-only">
               Type your message
             </label>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <div className="chat-composer">
                 <input
                   ref={inputRef}
@@ -327,19 +318,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                   </span>
                 </button>
               </div>
-              <button
-                type="button"
-                aria-label="Call DriveCam support"
-                className="chat-call-button"
-              >
-                <span className="relative size-6 overflow-clip">
-                  <span className="absolute inset-[8.33%]">
-                    <span className="absolute inset-[-1.88%]">
-                      <ChatAsset src="/chat/call.svg" className="block size-full max-w-none" />
-                    </span>
-                  </span>
-                </span>
-              </button>
             </div>
             <Typography
               id={descriptionId}

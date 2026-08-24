@@ -9,11 +9,6 @@ interface FooterColumn {
   items: FooterItem[];
 }
 
-interface FooterSectionGroup {
-  title: string;
-  columns: FooterColumn[];
-}
-
 const PRIMARY_COLUMNS: FooterColumn[] = [
   {
     title: "Products",
@@ -67,135 +62,6 @@ const PRIMARY_COLUMNS: FooterColumn[] = [
   },
 ];
 
-const AUTO_SECTION: FooterSectionGroup = {
-  title: "Auto products and services",
-  columns: [
-    {
-      title: "Car Insurance",
-      items: [
-        "Car Insurance",
-        "Vehicle Insurance",
-        "Third party Car Insurance",
-        "IDV Calculator",
-        "Comprehensive Car Insurance",
-        "Zero Depreciation Car Insurance",
-        "Car Insurance Calculator",
-        "Car Insurance Check",
-        "Own Damage Insurance",
-        "Best Car Insurance in India",
-      ],
-    },
-    {
-      title: "Bike Insurance",
-      items: [
-        "Bike Insurance",
-        "Own Damage Bike Insurance",
-        "Third Party Bike Insurance",
-        "Bike Insurance Calculator",
-        "Bike Insurance Check",
-        "Scooter Insurance",
-        "Used Bike Insurance",
-        "Comprehensive Bike Insurance",
-        "EV Bike Insurance",
-      ],
-    },
-    {
-      title: "Vehicle Services and More",
-      items: [
-        "Challan Check",
-        "Check Vehicle Details",
-        "Check RTO",
-        "Check Vehicle PUC Status",
-        "Recharge FASTag",
-        "Check RC Status",
-        "HSRP Number Plate",
-      ],
-    },
-  ],
-};
-
-const HEALTH_SECTION: FooterSectionGroup = {
-  title: "Health, life, and other services",
-  columns: [
-    {
-      title: "Health Insurance",
-      items: [
-        "Health Insurance",
-        "Health insurance Plans for Family",
-        "Cashless Health Insurance",
-        "Health Insurance for Parents",
-        "Health Insurance Premium Calculator",
-        "Zero Waiting Period Health Insurance",
-        "Critical Illness Insurance",
-        "Family Floater Health Insurance",
-        "Super Top Up Health Insurance",
-      ],
-    },
-    {
-      title: "Life Insurance",
-      items: [
-        "Life Insurance",
-        "Term Insurance",
-        "1 Crore Term Insurance",
-        "Term Insurance Calculator",
-      ],
-    },
-    {
-      title: "Group Health Insurance",
-      items: ["Group Health Insurance", "Group Personal Accident Insurance"],
-    },
-    {
-      title: "Other Services",
-      items: [
-        "ABHA Card",
-        "Ayushman Card",
-        "HLV Calculator",
-        "Will Creation Service",
-        "Health Insurance Policy Analyser",
-      ],
-    },
-  ],
-};
-
-const TRAVEL_SECTION: FooterSectionGroup = {
-  title: "Travel",
-  columns: [
-    {
-      title: "Travel Insurance",
-      items: [
-        "Travel Insurance",
-        "International Travel Insurance",
-        "Multi-Trip Travel Insurance",
-        "Travel insurance for Schengen visa",
-        "Travel Insurance for USA",
-        "Travel Insurance for Dubai",
-        "Travel Insurance for Thailand",
-      ],
-    },
-    {
-      title: "Visa Services & More",
-      items: [
-        "Apply for a Visa",
-        "Dubai Visa",
-        "US Visa",
-        "Schengen Visa",
-        "Singapore Visa",
-        "China Visa",
-        "Thailand Visa",
-        "ACKO Airpass",
-      ],
-    },
-  ],
-};
-
-const ENTERPRISE_ITEMS: FooterItem[] = [
-  "Health Insurance for Gig Workers",
-  "Loan Protection for Fintechs",
-  "Group Travel Insurance",
-  "Electronic Device Insurance",
-  "Group Health Insurance for Corporates",
-];
-
 function resolveItem(item: FooterItem): { label: string; href: string } {
   return typeof item === "string" ? { label: item, href: "#" } : item;
 }
@@ -245,26 +111,6 @@ function ColumnList({ column }: { column: FooterColumn }) {
   );
 }
 
-function SectionGroup({ section }: { section: FooterSectionGroup }) {
-  return (
-    <div>
-      <Typography
-        as="h3"
-        variant="label-lg"
-        color="invert"
-        className="block"
-      >
-        {section.title}
-      </Typography>
-      <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-        {section.columns.map((column) => (
-          <ColumnList key={column.title} column={column} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function Footer() {
   return (
     <footer
@@ -285,53 +131,6 @@ export function Footer() {
           {PRIMARY_COLUMNS.map((column) => (
             <ColumnList key={column.title} column={column} />
           ))}
-        </div>
-
-        <div className="my-12">
-          <FooterDivider />
-        </div>
-
-        {/* Auto products and services */}
-        <SectionGroup section={AUTO_SECTION} />
-
-        <div className="my-12">
-          <FooterDivider />
-        </div>
-
-        {/* Health, life, and other services */}
-        <SectionGroup section={HEALTH_SECTION} />
-
-        <div className="my-12">
-          <FooterDivider />
-        </div>
-
-        {/* Travel */}
-        <SectionGroup section={TRAVEL_SECTION} />
-
-        <div className="my-12">
-          <FooterDivider />
-        </div>
-
-        {/* Enterprise (single column list) */}
-        <div>
-          <Typography
-            as="h3"
-            variant="label-lg"
-            color="invert"
-            className="block"
-          >
-            Enterprise
-          </Typography>
-          <ul className="mt-6 flex flex-col gap-2">
-            {ENTERPRISE_ITEMS.map((item) => {
-              const { label } = resolveItem(item);
-              return (
-                <li key={label}>
-                  <FooterLink item={item} />
-                </li>
-              );
-            })}
-          </ul>
         </div>
 
         <div className="my-12">
