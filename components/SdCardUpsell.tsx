@@ -7,7 +7,7 @@ import { withBasePath } from "@/lib/assets";
 const RECOMMENDED_CARDS = [
   {
     name: "Samsung PRO Endurance microSD",
-    href: "https://www.amazon.in/s?k=Samsung+PRO+Endurance+microSD",
+    href: "https://www.amazon.in/dp/B0B9R267MD",
   },
   {
     name: "SanDisk High Endurance 64GB",
