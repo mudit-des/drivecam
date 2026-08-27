@@ -10,9 +10,15 @@ export function Logo({ className = "" }: LogoProps) {
     <Link
       href="/"
       aria-label="ACKO DriveCam home"
-      className={`group inline-flex items-center gap-2.5 ${className}`}
+      className={`group inline-flex h-10 items-center leading-none ${className}`}
     >
-      <AckoWordmark width={90} height={22} />
+      {/* Shift viewBox up so leftover space below the glyph is balanced in the 24px box */}
+      <AckoWordmark
+        width={98}
+        height={24}
+        viewBox="0 -0.42 120 29"
+        className="block h-6 w-[98px] shrink-0"
+      />
     </Link>
   );
 }

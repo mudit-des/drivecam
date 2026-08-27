@@ -2,18 +2,21 @@ interface AckoWordmarkProps {
   width?: number;
   height?: number;
   className?: string;
+  /** Override SVG viewBox. Default matches the source artwork (120×29). */
+  viewBox?: string;
 }
 
 export function AckoWordmark({
   width = 120,
   height = 29,
   className,
+  viewBox = "0 0 120 29",
 }: AckoWordmarkProps) {
   return (
     <svg
       width={width}
       height={height}
-      viewBox="0 0 120 29"
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"

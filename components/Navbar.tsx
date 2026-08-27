@@ -16,18 +16,16 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Chat with us", action: "chat" },
 ];
 
+const navLinkClass =
+  "inline-flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
+
+const chatBtnClass =
+  "inline-flex h-10 items-center justify-center rounded-[12px] border border-[#0a0a0b] bg-transparent px-4 text-sm font-normal text-[#0a0a0b] transition-colors duration-150 hover:bg-[#0a0a0b] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
+
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const closeChat = useCallback(() => setIsChatOpen(false), []);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 8);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,47 +43,38 @@ export function Navbar() {
   }, [isChatOpen, isMobileOpen]);
 
   return (
-    <header
-      className={[
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        isScrolled ? "pt-3 sm:pt-4" : "pt-5 sm:pt-6",
-      ].join(" ")}
-    >
+    <header className="fixed inset-x-0 top-6 z-50">
       <div className="container-page">
         <nav
           aria-label="Primary"
-          className={[
-            "relative mx-auto flex w-full items-center justify-between rounded-full border border-line bg-white/80 pl-5 pr-2 py-2 glass-surface transition-all duration-300",
-            isScrolled ? "shadow-floating border-line-strong" : "shadow-card",
-          ].join(" ")}
+          className="acko-web-header relative mx-auto flex h-16 w-full items-center justify-between p-3"
         >
-          <Logo />
+          <div className="flex h-10 items-center pl-2">
+            <Logo />
+          </div>
 
-          {/* Desktop nav */}
-          <ul className="hidden items-center gap-1 md:flex">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.label}>
-                {"href" in item ? (
-                  <Link
-                    href={item.href}
-                    className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:bg-surface-alt hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-                  >
+          <div className="hidden items-center gap-3 md:flex">
+            <ul className="flex items-center">
+              {NAV_ITEMS.filter((item) => "href" in item).map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className={navLinkClass}>
                     {item.label}
                   </Link>
-                ) : (
-                  <button
-                    type="button"
-                    aria-haspopup="dialog"
-                    aria-expanded={isChatOpen}
-                    onClick={() => setIsChatOpen(true)}
-                    className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:bg-surface-alt hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-                  >
-                    {item.label}
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded={isChatOpen}
+              onClick={() => setIsChatOpen(true)}
+              className={chatBtnClass}
+            >
+              <span className="acko-btn-content">
+                <span className="acko-btn-label">Chat with us</span>
+              </span>
+            </button>
+          </div>
 
           {/* Mobile toggle */}
           <button
@@ -94,7 +83,7 @@ export function Navbar() {
             aria-expanded={isMobileOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-ink transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 md:hidden"
           >
             {isMobileOpen ? (
               <X className="h-5 w-5" strokeWidth={2.2} />
@@ -109,20 +98,20 @@ export function Navbar() {
           id="mobile-nav"
           className={[
             "md:hidden",
-            "mx-auto mt-3 w-full origin-top transform-gpu overflow-hidden rounded-3xl border border-line bg-white shadow-floating transition-all duration-300",
+            "mx-auto mt-3 w-full origin-top transform-gpu overflow-hidden acko-web-header transition-all duration-300",
             isMobileOpen
               ? "pointer-events-auto max-h-[420px] opacity-100"
               : "pointer-events-none max-h-0 opacity-0",
           ].join(" ")}
         >
-          <ul className="flex flex-col p-2">
+          <ul className="flex flex-col p-3">
             {NAV_ITEMS.map((item) => (
               <li key={item.label}>
                 {"href" in item ? (
                   <Link
                     href={item.href}
                     onClick={() => setIsMobileOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
+                    className="flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
                   >
                     {item.label}
                   </Link>
@@ -135,9 +124,11 @@ export function Navbar() {
                       setIsMobileOpen(false);
                       setIsChatOpen(true);
                     }}
-                    className="block w-full rounded-2xl px-4 py-3 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-surface-alt"
+                    className={`${chatBtnClass} w-full`}
                   >
-                    {item.label}
+                    <span className="acko-btn-content">
+                      <span className="acko-btn-label">{item.label}</span>
+                    </span>
                   </button>
                 )}
               </li>

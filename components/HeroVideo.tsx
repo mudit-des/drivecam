@@ -48,7 +48,7 @@ export function HeroVideo() {
         playsInline
         preload="auto"
         onEnded={handleEnded}
-        className="block h-auto w-full rounded-5xl"
+        className="block h-auto w-full rounded-[32px]"
       />
 
     </div>

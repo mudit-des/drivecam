@@ -103,7 +103,7 @@ export function MeetYourDriveCam() {
         {CARDS.map((card, i) => (
           <article
             key={card.id}
-            className="sticky mx-auto flex h-[min(640px,calc(100vh-8rem))] w-full max-w-[1280px] flex-col gap-6 overflow-hidden rounded-[32px] border border-line bg-gradient-to-br from-accent-soft from-0% to-white to-25% p-8 shadow-floating sm:p-10 md:h-[640px] lg:h-[680px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-14"
+            className="acko-bento-card sticky mx-auto flex h-[min(640px,calc(100vh-8rem))] w-full max-w-[1280px] flex-col gap-6 overflow-hidden bg-gradient-to-br from-accent-soft from-0% to-white to-25% p-8 sm:p-10 md:h-[640px] lg:h-[680px] lg:flex-row lg:items-stretch lg:gap-12 lg:p-14"
             style={{
               zIndex: i + 1,
               top: `${6 + i * 0.5}rem`,
@@ -147,7 +147,7 @@ export function MeetYourDriveCam() {
 
             {/* Right 55% on desktop */}
             <div className="mx-auto w-full max-w-[480px] lg:mx-0 lg:max-w-none lg:w-[55%]">
-              <div className="aspect-video w-full overflow-hidden rounded-3xl bg-ink/5 lg:aspect-auto lg:h-full">
+              <div className="aspect-video w-full overflow-hidden rounded-[32px] bg-ink/5 lg:aspect-auto lg:h-full">
                 <video
                   ref={(el) => {
                     videoRefs.current[i] = el;
