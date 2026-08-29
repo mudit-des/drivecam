@@ -17,10 +17,10 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const navLinkClass =
-  "inline-flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
+  "inline-flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-[#ebebeb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
 
 const chatBtnClass =
-  "inline-flex h-10 items-center justify-center rounded-[12px] border border-[#0a0a0b] bg-transparent px-4 text-sm font-normal text-[#0a0a0b] transition-colors duration-150 hover:bg-[#0a0a0b] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
+  "inline-flex h-10 items-center justify-center rounded-[12px] border border-[#0a0a0b] bg-transparent px-4 text-sm font-normal text-[#0a0a0b] transition-colors duration-150 hover:bg-[#ebebeb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30";
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -83,7 +83,7 @@ export function Navbar() {
             aria-expanded={isMobileOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-ink transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-ink transition-colors duration-150 hover:bg-[#ebebeb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 md:hidden"
           >
             {isMobileOpen ? (
               <X className="h-5 w-5" strokeWidth={2.2} />
@@ -111,7 +111,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     onClick={() => setIsMobileOpen(false)}
-                    className="flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+                    className="flex h-10 items-center rounded px-4 text-sm font-normal text-ink-soft transition-colors duration-150 hover:bg-[#ebebeb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
                   >
                     {item.label}
                   </Link>

@@ -125,6 +125,7 @@
   background-color: #0a0a0b;
   color: #ffffff;
   box-shadow: none;
+  border: 1px solid #0a0a0b;
 }
 
 .acko-btn-secondary {
@@ -141,6 +142,7 @@
 .acko-btn-inverted {
   background-color: #0a0a0b;
   color: #ffffff;
+  border: 1px solid #0a0a0b;
 }
 
 .acko-btn-ghost {
@@ -162,25 +164,20 @@
 
 /* Hover */
 @media (hover: hover) and (pointer: fine) {
-  .acko-btn-primary:hover:not(:disabled) {
-    background-image: none;
-    background-color: #1a1a1b;
-    box-shadow: none;
-  }
-
   .acko-btn-secondary:hover:not(:disabled) {
     filter: none;
-    background-color: #0a0a0b;
-    color: #ffffff;
+    background-color: #ebebeb;
+    color: #0a0a0b;
   }
 
   .acko-btn-inverted:hover:not(:disabled) {
     filter: none;
-    background-color: #1a1a1b;
+    background-color: #ebebeb;
+    color: #0a0a0b;
   }
 
   .acko-btn-ghost:hover:not(:disabled) {
-    background-color: var(--colorBtnGhostHoverBg);
+    background-color: #ebebeb;
   }
 
   .acko-btn-link:hover:not(:disabled) {

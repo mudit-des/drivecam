@@ -268,7 +268,7 @@ export function VideoPlaylist() {
                   className="inline-block h-1 w-1 rounded-full bg-line-strong"
                 />
                 <Typography variant="body-sm" color="secondary">
-                  {activeIndex + 1} of {ALL_VIDEOS.length}
+                  {activeIndex + 1} of {TOTAL_VIDEOS}
                 </Typography>
               </div>
             </div>
